@@ -1,0 +1,71 @@
+<div class="row">
+<br/>
+<div class="large-6 medium-8 small-centered columns" style="background-color:rgba(56,112,109,0.5)">
+		<br/>
+		<p><b>Message: "<%= @reference.feedback.comment %>"</b></p>
+		<h3>Overall rating</h3>
+		<div class="progress warning radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.rate %>%"></span>
+		</div>
+		<h3>Friendly</h3>
+		<% if @reference.feedback.friendly <= 20 %>
+		<div class="progress alert radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.friendly %>%"></span>
+		</div>
+		<% elsif @reference.feedback.friendly >= 60 %>
+		<div class="progress success radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.friendly %>%"></span>
+		</div>
+		<% else %>
+		<div class="progress radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.friendly %>%"></span>
+		</div>
+		<% end %>
+
+		<h3>Fun</h3>
+		<% if @reference.feedback.fun <= 20 %>
+		<div class="progress alert radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.fun %>%"></span>
+		</div>
+		<% elsif @reference.feedback.fun >= 60 %>
+		<div class="progress success radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.fun %>%"></span>
+		</div>
+		<% else %>
+		<div class="progress radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.fun %>%"></span>
+		</div>
+		<% end %>
+
+		<h3>Confidence</h3>
+		<% if @reference.feedback.confidence <= 20 %>
+		<div class="progress alert radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.confidence %>%"></span>
+		</div>
+		<% elsif @reference.feedback.confidence >= 60 %>
+		<div class="progress success radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.confidence %>%"></span>
+		</div>
+		<% else %>
+		<div class="progress radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.confidence %>%"></span>
+		</div>
+		<% end %>
+
+		<h3>Curiosity</h3>
+		<% if @reference.feedback.curiosity <= 20 %>
+		<div class="progress alert radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.curiosity %>%"></span>
+		</div>
+		<% elsif @reference.feedback.curiosity >= 60 %>
+		<div class="progress success radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.curiosity %>%"></span>
+		</div>
+		<% else %>
+		<div class="progress radius round">
+		  <span class="meter" style="width: <%= @reference.feedback.curiosity %>%"></span>
+		</div>
+		<% end %>
+		<br/>
+</div>
+</div>

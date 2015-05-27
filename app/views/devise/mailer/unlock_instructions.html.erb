@@ -1,0 +1,23 @@
+<html>
+<body style="width: 100%">
+<div class="text-center" style="background-color: #7D1935; margin-left: auto; margin-right: auto; width: 70%; padding: 2%; min-height: 15px">
+  <h1 style="text-align: center; color: white">Hello <%= @resource.name %>!</h1>
+</div>
+<div style="background-color: #F5F3EE; margin-left: auto; margin-right: auto; width: 70%; min-height: 50%; padding: 2%">
+<p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+<p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+<p><%= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token) %>
+<br/>
+
+<h3>Warm regards, </h3>
+<h4>Vuong Ngo<h4>
+<a href="http://about.me/vuongngo_pd" target="blank">http://about.me/vuongngo_pd</a>
+</div>		
+<div class="text-center" style="background-color:#4A96AD; margin-left: auto; margin-right: auto; width: 70%; padding: 2%; min-height: 15px">
+  <p style="text-align: center;"><b>Powered by Cheersee.co</b>
+  <a href="#" class="myButton">Facebook</a>
+  <a href="#" class="myButton">Twitter</a>
+  </p>
+</div>
+</body>
+</html>

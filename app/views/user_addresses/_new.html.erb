@@ -1,0 +1,5 @@
+<%= form_tag user_address_path(:id => @address.id), method: :patch, remote: :true do %>
+	<h5>Please enter your address below. We only use it to send New Year Card.</h5>
+	<%= text_field_tag :address %>
+	<%= submit_tag "Submit", class: "button tiny radius" %>
+<% end %>

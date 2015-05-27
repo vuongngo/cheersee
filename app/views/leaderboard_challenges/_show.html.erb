@@ -1,0 +1,62 @@
+<h3> Leaderboard</h3>
+<% if @leaderboard_challenge.first.present? %>
+<div class="small-4 columns">
+	<a href="/profiles?id=<%= @leaderboard_challenge.first.user.id %>", target="_blank">
+		<% if @leaderboard_challenge.first.user.profile.avatar.blank? %>
+		    <%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+		<% else %>
+		    <%= image_tag(@leaderboard_challenge.first.user.profile.avatar_url(:thumb).to_s, size: "75x75") if @leaderboard_challenge.first.user.profile.avatar? %>
+		<% end %>
+	</a>
+	<h4><%= @leaderboard_challenge.first.user.name %></h4>
+	<%= @leaderboard_challenge.first_badge %>
+	<% if @leaderboard_challenge.firstpic.blank? %>
+	    <a href="/challengeshow?id=<%= @leaderboard_challenge.first.id %>"><%= image_tag("fbadge.png", size: "45x45") %></a>
+	<% else %>
+		<a href="/challengeshow?id=<%= @leaderboard_challenge.first.id %>"><%= image_tag @leaderboard_challenge.firstpic_url.to_s if @leaderboard_challenge.firstpic? %></a>
+	<% end %>
+	<p>Point: <%= @leaderboard_challenge.first_point %></p>
+</div>
+<% end %>
+
+<% if @leaderboard_challenge.second.present? %>
+<div class="small-4 columns">
+	<a href="/profiles?id=<%= @leaderboard_challenge.second.user.id %>", target="_blank">
+		<% if @leaderboard_challenge.second.user.profile.avatar.blank? %>
+		    <%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+		<% else %>
+		    <%= image_tag(@leaderboard_challenge.second.user.profile.avatar_url(:thumb).to_s, size: "75x75") if @leaderboard_challenge.second.user.profile.avatar? %>
+		<% end %>
+	</a>
+	<h4><%= @leaderboard_challenge.second.user.name %></h4>
+	<%= @leaderboard_challenge.second_badge %>
+	<% if @leaderboard_challenge.secondpic.blank? %>
+	    <a href="/challengeshow?id=<%= @leaderboard_challenge.second.id %>"><%= image_tag("sbadge.png", size: "45x45") %></a>
+	<% else %>
+	     <a href="/challengeshow?id=<%= @leaderboard_challenge.second.id %>"><%= image_tag @leaderboard_challenge.secondpic_url.to_s if @leaderboard_challenge.secondpic? %></a>
+	<% end %>
+	<p>Point: <%= @leaderboard_challenge.second_point %></p>
+</div>
+<% end %>
+
+<% if @leaderboard_challenge.third.present? %>
+<div class="small-4 columns">
+	<a href="/profiles?id=<%= @leaderboard_challenge.third.user.id %>", target="_blank">
+		<% if @leaderboard_challenge.third.user.profile.avatar.blank? %>
+		    <%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+		<% else %>
+		    <%= image_tag(@leaderboard_challenge.third.user.profile.avatar_url(:thumb).to_s, size: "75x75") if @leaderboard_challenge.third.user.profile.avatar? %>
+		<% end %>
+	</a>
+	<h4><%= @leaderboard_challenge.third.user.name %></h4>
+	<%= @leaderboard_challenge.third_badge %>
+	<% if @leaderboard_challenge.thirdpic.blank? %>
+	    <a href="/challengeshow?id=<%= @leaderboard_challenge.third.id %>"><%= image_tag("tbadge.png", size: "45x45") %></a>
+	<% else %>
+	     <a href="/challengeshow?id=<%= @leaderboard_challenge.third.id %>"><%= image_tag @leaderboard_challenge.thirdpic_url.to_s if @leaderboard_challenge.thirdpic? %></a>
+	<% end %>
+	<p>Point: <%= @leaderboard_challenge.third_point %></p>
+</div>
+<% end %>
+
+

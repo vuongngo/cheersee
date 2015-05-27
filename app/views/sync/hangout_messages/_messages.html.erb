@@ -1,0 +1,27 @@
+<div>
+			<% if hangout_message.user_id == current_user.id %>
+			<div class="row">
+				<div class="large-4 medium-5 small-6 columns">
+					<h5 style="color:black"><% if hangout_message.user.profile.avatar.blank? %>
+						<%= image_tag("noavatar.gif", size:"45x45", alt: "No avatar") %>
+					<% else %>
+						<%= image_tag(hangout_message.user.profile.avatar_url(:thumb).to_s, size: "45x45") if hangout_message.user.profile.avatar? %>
+					<% end %>
+					<%= hangout_message.user.name %>:</h5>
+				</div>
+				<div class="large-8 medium-7 small-6 columns" style="padding-top: 1em"><%= hangout_message.content %></div>
+			</div>
+			<% else %>
+			<div class="row" style="padding: 0.5em 0em 0.5em 1em">
+				<div class="large-4 medium-5 small-6 columns"><h5 style="color:black">
+					<% if hangout_message.user.profile.avatar.blank? %>
+						<%= image_tag("noavatar.gif", size:"45x45", alt: "No avatar") %>
+					<% else %>
+						<%= image_tag(hangout_message.user.profile.avatar_url(:thumb).to_s, size: "45x45") if hangout_message.user.profile.avatar? %>
+					<% end %>
+					<%= hangout_message.user.name %>:</h5>
+				</div>
+				<div class="large-8 medium-7 small-6 columns" style="padding-top: 1em"><%= hangout_message.content %></div>
+			</div>
+			<% end %>
+</div>

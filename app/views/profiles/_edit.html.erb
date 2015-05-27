@@ -1,0 +1,12 @@
+  <div class="row" 	style="background-color:rgba(172,47,41,0.5);">
+	<h3>Edit profile</h3>
+	<%= form_for(@user_profile, :html => { :multipart => true }, remote: true) do |f| %>
+		<%= f.label :gender %> 
+		<%= f.radio_button :gender, :name => 'Male', value: 'male' %> 
+		<%= f.radio_button :gender, :name => 'Female', value: 'female' %>
+		<p><%= f.label :age %> <%= f.text_field :age %>
+		<%= f.label :hometown %> <%= f.text_field :hometown, placeholder: "New York" %>
+		<%= f.file_field :avatar %>
+		<%= f.submit "Update", class:"button  tiny" %>
+	<% end %>
+  </div>

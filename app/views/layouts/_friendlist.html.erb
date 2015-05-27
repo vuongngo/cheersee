@@ -1,0 +1,113 @@
+      <ul class="off-canvas-list">
+        <li><label>Friend-whisper</label></li>
+        <li style="margin: 1.5em 0em 0em 2.5em"><button type="button" class="button tiny" onclick="revealDiv()" id="token-button-1"><span id="eighthStopintro" style="color: #ffffff">Secret</span></button>  
+                                              <button type="button" class="button tiny" onclick="hideDiv()" id="token-button-2" style="display:none; color: #ffffff">Secret</button> 
+                                              <button type="button" class="button tiny alert" onclick="revealDiv2()" id="token-button-3"><span id="ninethStopintro" style="color: #ffffff">Whisper</span></button>
+                                              <button type="button" class="button tiny alert" onclick="hideDiv2()" id="token-button-4" style="display:none; color: #ffffff">Whisper</button> 
+
+                                            </li>
+        <li id="create-token" style="display:none">
+          <%= form_for(@friendhash, remote: true) do |f| %>
+            <%= f.text_field :token, placeholder:"Your secret whisper", onfocus:"getLocation5()" %>
+            <div id="location5"></div> 
+            <%= f.submit "Share your secret with friends", class:"button" %>
+
+              <script>
+                  var z = document.getElementById("location5");
+
+                  function getLocation5() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(showPosition5);
+                    } else {
+                        z.innerHTML = "Geolocation is not supported by this browser.";
+                      }
+                  }       
+                  function showPosition5(position) {
+                      z.innerHTML = "<input id='friendhash_lat' name='friendhash[lat]' type='hidden' value='" + position.coords.latitude + "'><input id='friendhash_lng' name='friendhash[lng]' type='hidden' value='" + position.coords.longitude + "'>"
+                  }
+
+              </script>
+          <% end %>         
+        </li>
+        <li id="find-friend" style="display:none">
+          <%= form_tag search_path, remote: true, id: "find-form" do %>
+                <div class="row"><input id="token" name="token" type="text" onfocus="getLocation6()">  
+                  <div class="small-6 small-centered columns"><%= submit_tag "Search", :name => nil, class:"button tiny alert", onclick: "clearDiv()" %></div>
+                </div>
+                <div id="location6">
+                </div>
+              <script>
+              var y6 = document.getElementById("location6");
+
+              function getLocation6() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition6);
+                } else {
+                    y6.innerHTML = "Geolocation is not supported by this browser.";
+                  }
+              }       
+              function showPosition6(position) {
+                  y6.innerHTML = "<input id='latitude' name='latitude' type='hidden' value='" + position.coords.latitude + "'><input id='longitude' name='longitude' type='hidden' value='" + position.coords.longitude + "'>"
+              }
+
+            </script>
+          <% end %>
+        </li>
+        <li id="find-friend"></li>
+        <div id="friendsearch"></div> 
+
+        <li><label>Meetup friends</label><li>
+        <%= render "meetup_pages/message" %>
+
+        <li><label>Friends</label></li>
+        <%= render "meetup_pages/friends" %>
+
+        <li><label>Friend Requests</label></li>
+        <div class="large_6 columns" id="requestme"><%= render "meetup_pages/friend_requests" %></div>
+      </ul>
+        
+    <script>
+        var link = document.getElementById("create-token");
+        var btn1 = document.getElementById("token-button-1");
+        var btn2 = document.getElementById("token-button-2");
+        var showlink = document.getElementById("showld");
+
+        var link2 = document.getElementById("find-friend");
+        var btn3 = document.getElementById("token-button-3");
+        var btn4 = document.getElementById("token-button-4");
+
+        function clearDiv(){
+          document.getElementById("find-form").style.display = "none";
+          setTimeout(responseDiv, 1000); 
+        };
+        function responseDiv() {
+          document.getElementById("find-form").reset();
+          document.getElementById("find-form").style.display = "initial";
+        }
+
+        function hideDiv() {
+          link.style.display = "none"; 
+          btn1.style.display = "initial";
+          btn2.style.display = "none";
+        }
+
+        function revealDiv() {
+          link.style.display = "initial"; 
+          btn1.style.display = "none";
+          btn2.style.display = "initial";
+          link2.style.display = "none";
+        }
+
+        function hideDiv2() {
+          link2.style.display = "none"; 
+          btn3.style.display = "initial";
+          btn4.style.display = "none";
+        }
+
+        function revealDiv2() {
+          link2.style.display = "initial"; 
+          btn3.style.display = "none";
+          btn4.style.display = "initial";
+          link.style.display = "none";
+        }
+    </script> 

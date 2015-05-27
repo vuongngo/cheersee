@@ -1,0 +1,38 @@
+<% if @test_id == "2" %>
+	<div class="row" style="padding: 1em">
+			<div class="row">
+			  <div class="small-12 columns">
+					"<%= @set_challenges_home.first.post %>"
+			  </div>
+			</div>	
+			<br/>
+			<i>End at:</i> <%= @set_challenges_home.first.end_time.in_time_zone(Time.zone).to_formatted_s(:short) %><br/>
+			People with <i><b><%= @set_challenges_home.first.point_measure %> <%= @set_challenges_home.first.point_metric %></b></i> wins!
+		<p><%= image_tag @set_challenges_home.first.setchallenge_url.to_s if @set_challenges_home.first.setchallenge? %>
+	</div>
+<% elsif @test_id == "3" %>	
+	<div class="row" style="padding: 1em">
+			<div class="row">
+			  <div class="small-4 columns">
+					<% if @set_challenges_home.first.user.profile.avatar.blank? %>
+						<%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+					<% else %>
+						<%= image_tag(@set_challenges_home.first.user.profile.avatar_url(:thumb).to_s, size: "75x75") if @set_challenges_home.first.user.profile.avatar? %>
+					<% end %>
+			  </div>
+			  <div class="small-8 columns">
+			  	<h3> <%= @set_challenges_home.first.user.name %></h3>
+					"<%= @set_challenges_home.first.post %>"
+			  </div>
+			</div>	
+			<br/>
+			<i>End at:</i> <%= @set_challenges_home.first.end_time.in_time_zone(Time.zone).to_formatted_s(:short) %><br/>
+			People with <i><b><%= @set_challenges_home.first.point_measure %> <%= @set_challenges_home.first.point_metric %></b></i> wins!
+		<p><%= image_tag @set_challenges_home.first.setchallenge_url.to_s if @set_challenges_home.first.setchallenge? %>
+	</div>
+<% else %>
+	<div class="row" style="padding: 0em 1em 1em 1em">
+		<h3 class="text-center" style="font-family:Book Antiqua; color: #3d3636">"No more wasted time on finding a date. Take challenges and date with the coolest people in town."</h3>
+		<br/>
+	</div>
+<% end %>

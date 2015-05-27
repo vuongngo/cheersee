@@ -1,0 +1,11 @@
+<br/>
+<div class="large-8 large-centered medium-10 medium-centered small-12 small-centered columns" style="background-color: #ffffff">
+	<br/>
+	<%= form_for @join_challenge do |f| %>
+		<%= f.label :content, "What do want to share?" %>
+		<%= f.text_field :content %>
+		<%= f.label :joinchallenge, "Photo upload" %>
+		<%= f.file_field :joinchallenge %>
+		<%= f.submit "Edit", class:"button small radius" %>
+	<% end %>
+</div>

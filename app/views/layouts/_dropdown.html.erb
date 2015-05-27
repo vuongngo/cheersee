@@ -1,0 +1,12 @@
+<a href="#" style="font-size: 1.50em">More</a>
+<ul class="dropdown" data-options="is_hover: false;" style="width:300px">
+ 	
+  		<li style="padding:5px"><%= link_to "Profile", profiles_path, style:"font-size: 1.35em" %></li>
+
+ 		  <li style="padding:5px"><%= link_to "Setting", '#', style:"font-size: 1.35em" %></li>
+
+      <li>
+       <%= link_to('Logout', destroy_user_session_path, :method => :delete, style:"font-size: 1.35em") %>        
+      </li>
+
+</ul>

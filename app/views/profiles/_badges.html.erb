@@ -1,0 +1,51 @@
+<div class="row" style="padding: 1em; border-style: solid; border-color: #98bf21;">
+  <ul class="small-block-grid-3 medium-block-grid-4 large-block-grid-4">
+	<% if current_user.id <= 100 %>
+		<li>
+			<p>Chief Evangelist</p>
+			<%= image_tag "evangelist.png", size: "45x45" %>		
+		</li>
+		<li>
+			<p>Dearest friend</p>
+			<%= image_tag "fsmall.png", size: "45x45" %>
+		</li>
+	<% end %>
+	<% if @fbadges.present? %>
+	 <% @fbadges.each do |f| %>
+	   <li>
+		   <p><%= f.first_badge %></p>
+		   <% if f.firstpic.blank? %>
+		     <a data-remote="true" href="/leaderboard_challenges/<%= f.id %>"><%= image_tag("fbadge.png", size: "45x45") %></a>
+		   <% else %>
+		     <a data-remote="true" href="/leaderboard_challenges/<%= f.id %>"><%= image_tag f.firstpic_url.to_s if f.firstpic? %></a>
+		   <% end %>
+	   </li>
+	  <% end %>
+	<% end %>
+	<% if @sbadges.present? %>
+	  <% @sbadges.each do |f| %>
+	    <li>
+	   	   <p><%= f.second_badge %></p>
+		   <% if f.secondpic.blank? %>
+		     <a data-remote="true" href="/leaderboard_challenges/<%= f.id %>"><%= image_tag("sbadge.png", size: "45x45") %></a>
+		   <% else %>
+		     <a data-remote="true" href="/leaderboard_challenges/<%= f.id %>"><%= image_tag f.secondpic_url.to_s if f.secondpic? %></a>
+		   <% end %>
+		</li>
+	  <% end %>
+	<% end %>
+	<% if @tbadges.present? %>
+	 <% @tbadges.each do |f| %>
+	    <li>
+	       <p><%= f.third_badge %></p>
+		   <% if f.thirdpic.blank? %>
+		     <a data-remote="true" href="/leaderboard_challenges/<%= f.id %>"><%= image_tag("tbadge.png", size: "45x45") %></a>
+		   <% else %>
+		     <a data-remote="true" href="/leaderboard_challenges/<%= f.id %>"><%= image_tag f.thirdpic_url.to_s if f.thirdpic? %></a>
+		   <% end %>
+		</li>
+	  <% end %>
+	<% end %>
+  </ul>
+</div>
+<div class="row" id="leaderlist" style="background-color: rgba(97,48,43,0.5)"></div>

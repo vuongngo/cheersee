@@ -1,0 +1,7 @@
+<% if @friend.present? %>
+$("#friendsearch").html("<%= escape_javascript(render 'static_pages/search') %>");
+$("#friendsearch").foundation('reflow');
+<% else %>
+$("#flash-message").html("<%= escape_javascript(render 'shared/flash') %>");
+$("#flash-message").foundation('reflow');
+<% end %>

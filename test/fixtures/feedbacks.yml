@@ -1,0 +1,19 @@
+one:
+ reference_id: 1 
+ time_management_id: 1
+ rate: 70
+ friendly: 89
+ fun: 66
+ confidence: 86
+ curiosity: 67
+comment: It was nice to meet you!
+
+two:
+ reference_id: 2 
+ time_management_id: 1
+ rate: 74
+ friendly: 69
+ fun: 68
+ confidence: 86
+ curiosity: 97
+ comment: Tom is really nice!

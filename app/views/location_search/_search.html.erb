@@ -1,0 +1,27 @@
+<div class="row" style="margin-top: 20px" >
+		<!-- <button onclick="getLocation()">Get location</button> -->
+		<%= form_tag('hangout/search', remote: true) do %>
+     		<div class="large-6 medium-8 small-10 columns" style="margin-top:5px">
+     			<input id="term" name="term" type="text" onfocus="getLocation()">
+     		</div>
+     		<div id="location">
+            </div> 
+     		<div class="large-6 medium-4 small-2 columns"><%= submit_tag "Search", :name => nil, class:"button" %> </div>
+
+     		<script>
+				var x = document.getElementById("location");
+
+				function getLocation() {
+    			if (navigator.geolocation) {
+       			 	navigator.geolocation.getCurrentPosition(showPosition);
+    			} else {
+        			x.innerHTML = "Geolocation is not supported by this browser.";
+    				}
+				}				
+				function showPosition(position) {
+    				x.innerHTML = "<input id='latitude' name='latitude' type='hidden' value='" + position.coords.latitude + "'><input id='longitude' name='longitude' type='hidden' value='" + position.coords.longitude + "'>"
+				}
+
+			</script>
+		<% end %> 
+</div>

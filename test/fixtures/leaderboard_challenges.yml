@@ -1,0 +1,23 @@
+one:
+ set_challenge_id: 1
+ first_place: 1
+ first_point: 67
+ first_badge: 1pic.jpg
+ second_place: 2
+ second_point: 69
+ second_badge: 2pic.jpg
+ third_place: 3
+ third_point: 80
+ third_badge: 3pic.jpg
+
+two:
+ set_challenge_id: 2
+ first_place: 3
+ first_point: 67
+ first_badge: 4pic.jpg
+ second_place: 2
+ second_point: 69
+ second_badge: 5pic.jpg
+ third_place: 1
+ third_point: 80
+ third_badge: 6pic.jpg

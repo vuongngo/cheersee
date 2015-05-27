@@ -1,0 +1,13 @@
+one:
+ business_name: Mucot
+ business_location: 174 High Street
+ longitude: 34.76834
+ latitude: 54.786843
+ share_time: 2014-11-11 00:00:00 +1100
+
+two:
+ business_name: Hero
+ business_location: 367 Bell Street
+ longitude: 54.79679
+ latitude: 63.06643
+ share_time: 2014-11-11 00:00:00 +0900

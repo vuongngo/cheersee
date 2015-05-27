@@ -1,0 +1,11 @@
+<div>
+	<% if @friend_request.present? %>
+	<% @friend_request.each do |f| %>
+		<p style="color:white"> Friend request from <%= f.user.name %>
+		<div class="row">
+			<div class="small-6 columns"><%= link_to "Accept request", friendship_path(:id => current_user.id, :accept => true, :friend_id => f.user_id), class:"button tiny success", :method => :patch, remote: true %></div>
+			<div class="small-6 columns"><%= link_to "No, thanks", friendship_path(:id => current_user.id, :friend_id => f.user_id), class:"button tiny alert", :method => :patch, remote: true %></div>
+		</div>
+	<% end %>
+	<% end %>
+</div>

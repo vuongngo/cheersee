@@ -1,0 +1,22 @@
+<a href="#" style="font-size: 20px; color: #A2AB58; margin-top: 0.2em">Sign-in</a>
+<ul class="dropdown" data-options="is_hover: false" >
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+  	
+  		<li style="padding:5px"><%= f.email_field :email, autofocus: true, placeholder: "Email" %></li>
+
+ 		  <li style="padding:5px"><%= f.password_field :password, autocomplete: "off" , placeholder: "Password" %></li>
+
+  			<% if devise_mapping.rememberable? -%>
+    	<li style="padding:5px"><%= f.check_box :remember_me %> <%= f.label :remember_me, style: "color:white" %></li>
+  			<% end -%>
+
+  		<li style="padding:5px"><%= f.submit "Log in", class: "button radius" %></li>
+  		
+  		<li style="padding:5px"><%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  		<%= link_to "Forgot your password?", new_password_path(resource_name) %></li>
+<% end %>
+	
+<% end %>
+
+</ul>

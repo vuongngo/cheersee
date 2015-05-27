@@ -1,0 +1,9 @@
+one:
+ user_id: 1
+ latitude: 98.454871
+ longitude: 103.454587
+
+two:
+ user_id: 2
+ latitude: 0.347414
+ longitude: 36.474874

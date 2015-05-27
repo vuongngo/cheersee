@@ -1,0 +1,29 @@
+<div>	<h4 style="color:black">Share your excitement!</h4>
+		<%= form_for(@join_challenge, :html => {:multipart => true}, remote: true) do |f| %>
+			<%= f.hidden_field :set_challenge_id %>
+			<%= f.text_field :content, placeholder:"Hura! Share your great achievement here.", onfocus:"getLocation2()" %>
+			<%= f.text_field :point, placeholder:"eg: 10, 20, 40, etc..." %>
+			<%= f.file_field :joinchallenge %>
+			<div id="joinchallengelocale"></div> 
+			<%= f.submit "Post", class:"button small", onclick: "closeDiv()" %>
+		<% end %>
+
+		<script>
+				var z = document.getElementById("joinchallengelocale");
+				function getLocation2() {
+    			if (navigator.geolocation) {
+       			 	navigator.geolocation.getCurrentPosition(showPosition2);
+    			} else {
+        			z.innerHTML = "Geolocation is not supported by this browser.";
+    				}
+				};				
+				function showPosition2(position) {
+    				z.innerHTML = "<input id='join_challenge_latitude' name='join_challenge[latitude]' type='hidden' value='" + position.coords.latitude + "'><input id='join_challenge_longitude' name='join_challenge[longitude]' type='hidden' value='" + position.coords.longitude + "'>"
+				};
+
+				function closeDiv(){
+					document.getElementById("close-modal").click();
+				}
+		</script>
+
+</div>

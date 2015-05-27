@@ -1,0 +1,23 @@
+<!-- Demo form -->
+
+		<%= form_for [@user, @share_hangout] do |f| %>
+
+		<%= render 'shared/error_messages', object: f.object %>
+
+		<p> Choose time to hangout
+		<input id="share_hangout_share_time" name="share_hangout[share_time]" type="text" class="time ui-timepicker-input" autocomplete="off" style="width: 10em">
+		</p>
+
+		<script type="text/javascript">
+				$('#share_hangout_share_time').timepicker(new Date());
+     	</script>
+		<%= f.text_area :content, placeholder: "messages..." %>
+		<%= f.hidden_field :longitude, value: "39.834557" %>
+		<%= f.hidden_field :latitude, value: "-94.861265" %>
+		<%= f.hidden_field :business_name, value: "hello" %>
+		<h4> Notify friends </h4><%= f.check_box :notify_friend %>
+		<h4> Open nearby </h4><%= f.check_box :open_nearby %></br>
+		<%= f.submit "Post", class: "button" %>
+		<% end %>
+
+		<!-- Demo end -->

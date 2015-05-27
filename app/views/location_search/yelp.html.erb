@@ -1,0 +1,97 @@
+<!-- Result place to hangout -->
+<div class="row"><h3>Check-in meetup place</h3>
+	<ul class="hangout-orbit" data-orbit>
+	<% @response.businesses.each do |business| %>
+	<li data-orbit-slide="<%= business.id %>" style="background:#3E87BF">
+	<div class="large-6 columns" style="padding-left: 5em">
+		<br/>
+		<p><a href="#" data-reveal-id="<%= business.id %>">
+			<% if business.respond_to?(:image_url) %>
+				<%= image_tag business.image_url %>
+		<% else %>
+			<p><%= image_tag("images.jpg") %>
+		<% end %></a>
+		
+		<p style='color: white'><%= business.name %>
+
+		<p style='color: white'><%= business.location.address.join(', ') %>
+
+		<p style='color: white'><%= image_tag business.rating_img_url %>
+
+		<%= form_tag('hangout/map', remote: true) do%>
+			<input id="location" name="location" type="hidden" value="<%= business.location.display_address.join(', ') %>">
+			<div class="large-6 medium-4 small-2 columns"><%= submit_tag "Show map", class: "button" %> </div>
+		<% end %>
+	</div>
+	<div class="large-5 columns">
+
+				<!-- Form which user submit to share hangout -->
+
+		<%= form_for [@user, @share_hangout] do |f| %>
+
+		<%= render 'shared/error_messages', object: f.object %>
+		<p>
+		<p style='color: white'> Choose time to hangout
+		<input id="<%= business.id %>share_hangout_share_time" name="share_hangout[share_time]" type="text" class="time ui-timepicker-input" autocomplete="off" style="width: 10em">
+		</p>
+
+		<script type="text/javascript">
+				$('#<%= business.id %>share_hangout_share_time').timepicker(new Date());
+     	</script>
+		<%= f.text_area :content, placeholder: "messages..." %>
+		<%= f.hidden_field :longitude, value: "" %>
+		<%= f.hidden_field :latitude, value: "" %>
+		<input id="share_hangout_business_name" name="share_hangout[business_name]" type="hidden" value="<%= business.name %>">
+		<input id="share_hangout_business_location" name="share_hangout[business_location]" type="hidden" value="<%= business.location.display_address.join(', ') %>">
+		<h4> Notify friends <%= f.check_box :notify_friend %> 
+		Open nearby <%= f.check_box :open_nearby %> </h4>
+		<input id="share_hangout_tags" name="share_hangout[tags]" type="hidden" value="<%= @tag %>">
+		<%= f.submit "Post", class: "button" %>
+		<% end %>
+
+		<!-- End form--> 
+	</div>
+
+	<!-- Reveal model for extended information -->
+	<div id="<%= business.id %>" class="reveal-modal" data-reveal>	
+		
+		<% if business.respond_to?(:image_url) %>
+				<p><%= image_tag business.image_url %>
+		<% else %>
+			<p><%= image_tag("images.jpg") %>
+		<% end %>
+
+		<h4><%= image_tag business.rating_img_url %></h4>
+		<h4>Reviews: <%= business.review_count %>   <a href="<%= business.mobile_url %>" target="_blank"> <%= image_tag("yelpre.gif") %></a></h4>
+
+		<% if business.respond_to?(:categories) %>
+			<h4><% business.categories.each do |category, name|  %>
+									<%= name %> , 
+									<% end %></h4>
+		<% end %>
+
+		<h4><% business.location.display_address.each do |element| %>
+			<%= element %> , 
+			<% end %>
+		</h4>
+
+		<% if business.respond_to?(:snippet_text) %>
+		<h4><%= business.snippet_text %></h4>
+		<% end %>
+
+		<% if business.respond_to?(:menu_provider) %>
+		<h4><%= business.menu_provider %></h4>
+		<% end %>
+
+		<h4><%= image_tag business.snippet_image_url if business.respond_to?(:snippet_image_url) %></h4>
+
+
+		<a class="close-reveal-modal">&#215;</a>
+	</div>
+ 	
+ 	<% end %>
+ 	</li>
+ 	</ul>
+ <div>
+
+ <div id="map"></div>

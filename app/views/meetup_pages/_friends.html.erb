@@ -1,0 +1,25 @@
+<div class="row" style="margin-top: 0.5em">         
+           <% @friendship1.each do |f1| %>
+            <li><div class="small-6 columns">
+            	<h5><% if f1.friend.profile.avatar.blank? %>
+						<%= image_tag("noavatar.gif", size:"35x35", alt: "No avatar") %>
+					<% else %>
+						<%= image_tag(f1.friend.profile.avatar_url(:thumb).to_s, size: "35x35") if f1.friend.profile.avatar? %>
+					<% end %>
+            	<%= f1.friend.name %></h5></div> 
+            	<div class="small-6 columns"><%= link_to "Mes", friend_message_path(:id => current_user.id, :friendship_id => f1.id), class:"button tiny success", :method => :get %></div>
+			</li>
+           
+           <% end %>
+           <% @friendship2.each do |f2| %>
+            <li><div class="small-6 columns">
+            	<h5><% if f2.user.profile.avatar.blank? %>
+						<%= image_tag("noavatar.gif", size:"35x35", alt: "No avatar") %>
+					<% else %>
+						<%= image_tag(f2.user.profile.avatar_url(:thumb).to_s, size: "35x35") if f2.user.profile.avatar? %>
+					<% end %>
+            		<%= f2.user.name %></h5></div>
+				<div class="small-6 columns"><%= link_to "Mes", friend_message_path(:id => current_user.id, :friendship_id => f2.id), class:"button tiny success", :method => :get %></div>
+			</li>
+           <% end %>
+</div>

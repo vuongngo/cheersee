@@ -1,0 +1,8 @@
+$("#my-challenges").html("<%= escape_javascript(render 'set_challenges/show') %>");
+$("#create-challenges").html("<%= escape_javascript(raw render 'set_challenges/new') %>"); 
+$("#view-challenges").html("<%= escape_javascript(raw render 'set_challenges/index') %>"); 
+$("#my-challenges").foundation('reflow');
+$("#create-challenges").foundation('reflow');
+$("#view-challenges").foundation('reflow');
+$("#flash-message").html("<%= escape_javascript(render 'shared/flash') %>");
+$("#flash-message").foundation('reflow');

@@ -1,0 +1,78 @@
+<br/>
+<div class="row">
+    <div class="large-8 medium-10 small-centered columns" style="padding: 1em; background-color: #ffffff">        
+            <%= form_for [@user, @share_hangout] do |f| %>
+
+                <%= render 'shared/error_messages', object: f.object %>
+                <h4> Choose time to hangout:</h4>
+                <br/>
+                <ul class="inline-list">    
+                  <li>
+                    <input id="share_hangout_share_time" name="share_hangout[share_time]" type="text" class="time ui-timepicker-input" autocomplete="off" style="width: 10em" placeholder="Pick a time">
+                  </li>
+                  <li>
+                    <input id="share_date" name="share_date" type="text" class='datepicker' placeholder="Pick a day">
+                  </li>
+                </ul>
+                <script type="text/javascript">
+                  $(document).ready(function(){
+                    $('.datepicker').datepicker();
+                  });
+                </script>
+                <script type="text/javascript">
+                        $('#share_hangout_share_time').timepicker(new Date());
+                </script>
+                <%= f.text_area :content, placeholder: "What would you like to do?" %>
+                <%= f.hidden_field :longitude, value: @location[0]%>
+                <%= f.hidden_field :latitude, value: @location[1] %>
+                <input id="share_hangout_business_name" name="share_hangout[business_name]" type="hidden" value="<%= @location[2] %>">
+                <input id="share_hangout_business_location" name="share_hangout[business_location]" type="hidden" value="<%= @location[3] %>">
+                <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+                    <li><h5>Notify all mates <%= f.check_box :notify_friend %></h5></li> 
+                    <li><h5>Open nearby <%= f.check_box :open_nearby %></h5></li> 
+                    <li><h5>Select specific mate <%= f.check_box :specific_share, onchange: "shareOption()" %></h5></li> 
+                </ul>
+                <div id="share_option" class="row" style="display: none">    
+                    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3"> 
+                        <% if @friendship1.present? %>
+                           <% @friendship1.each do |f1| %>
+                            <li>
+                                <p><% if f1.friend.profile.avatar.blank? %>
+                                        <%= image_tag("noavatar.gif", size:"35x35", alt: "No avatar") %>
+                                    <% else %>
+                                        <%= image_tag(f1.friend.profile.avatar_url(:thumb).to_s, size: "35x35") if f1.friend.profile.avatar? %>
+                                    <% end %>
+                                <%= f1.friend.name %> <input id="mate_id" name="mate_id[]" type="checkbox" value="<%= f1.friend.id %>">
+                                </p>
+                            </li>
+                        <% end %>
+                           <% end %>
+                        <% if @friendship2.present? %>
+                           <% @friendship2.each do |f2| %>
+                            <li>
+                                <p><% if f2.user.profile.avatar.blank? %>
+                                        <%= image_tag("noavatar.gif", size:"35x35", alt: "No avatar") %>
+                                    <% else %>
+                                        <%= image_tag(f2.user.profile.avatar_url(:thumb).to_s, size: "35x35") if f2.user.profile.avatar? %>
+                                    <% end %>
+                                    <%= f2.user.name %> <input id="mate_id" name="mate_id[]" type="checkbox" value="<%= f2.user.id %>">
+                                </p>
+                            </li>
+                           <% end %>
+                        <% end %>
+                      </ul>                   
+                    </div>
+                <div class="row text-center">
+                    <input id="share_hangout_tags" name="share_hangout[tags]" type="hidden" value="<%= @tag %>">
+                    <p><%= f.submit "Post", class: "button tiny radius" %>
+                </div>
+            <% end %>
+        </div>
+</div>
+<script>
+    function shareOption(){
+        var sharediv = document.getElementById("share_option");
+        sharediv.style.display = "initial";
+        document.getElementById("share_hangout_notify_friend").checked = false;
+    };
+</script>

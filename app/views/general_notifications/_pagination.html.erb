@@ -1,0 +1,24 @@
+		<% @general_notifications.each do |f| %>
+			<div class="large-10 medium-11 small-centered columns" style="background-color:#ffffff; padding: 1em; margin-bottom: 0.5em">
+ 		  	  <a href="/profiles?id=<%= f.sender.id %>", target="_blank">
+				<% if f.sender.profile.avatar.blank? %>
+					<%= image_tag("noavatar.gif", size:"35x35", alt: "No avatar") %>
+				<% else %>
+					<%= image_tag(f.sender.profile.avatar_url(:thumb).to_s, size: "35x35") if f.sender.profile.avatar? %>
+				<% end %>
+			  </a>
+				<%= f.mes %>
+			  <div class="right">
+			  <% if f.set_challenge_id.present? %>
+			  	<a href="/relatedchallenge/?id=<%= f.set_challenge_id %>", target="_blank">
+			  <% elsif f.join_challenge_id.present? %>
+			  	<a href="/challengeshow/?id=<%= f.join_challenge_id %>", target="_blank">
+			  <% elsif f.reference_id.present? %>
+			  	<a href="/references/<%= f.reference_id %>", target="_blank">
+			  <% end %>			  
+			  		<%= image_tag("see_more.gif", size:"30x30", alt: "See more") %>
+			  </a></div>
+			  <br/>
+			</div>
+		<% end %>
+				<div id="ajax-pagination"><br/><div class="text-center"><%= link_to_next_page @general_notifications, 'More...', remote: :true, class: "button tiny alert" %></div></div>

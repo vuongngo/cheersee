@@ -1,0 +1,220 @@
+<% if user_signed_in? %>
+	<!-- Challenge search-->
+		<div class="contain-to-grid sticky" style="height: 3.5em; opacity: 0.9">
+  			<nav data-topbar role="navigation" data-options="sticky_on: large">
+			<%= form_tag challengesearch_path, remote: :true do %>
+			  <div class="row" style="padding-top:0.6em">
+			  	<div class="large-12 columns">
+			      <div class="row collapse">
+			        <div class="small-9 columns" id="forthStopintro">
+			     		<input id="term" name="term" type="text" placeholder="Look for activities around..." onfocus="getLocation1()">
+			     	</div>
+			        <div class="small-3 columns">
+			     		<%= submit_tag "Search", :name => nil, class: "button postfix" %>
+			        </div>
+			      </div>
+			    </div>
+			    <div id="searchforchallenge">
+	            </div> 
+			  </div>	
+	     		<script>
+					var y = document.getElementById("searchforchallenge");
+
+					function getLocation1() {
+	    			if (navigator.geolocation) {
+	       			 	navigator.geolocation.getCurrentPosition(showPosition1);
+	    			} else {
+	        			y.innerHTML = "Geolocation is not supported by this browser.";
+	    				}
+					}				
+					function showPosition1(position) {
+	    				y.innerHTML = "<input id='latitude' name='latitude' type='hidden' value='" + position.coords.latitude + "'><input id='longitude' name='longitude' type='hidden' value='" + position.coords.longitude + "'>"
+					}
+
+				</script>
+			<% end %>
+		  </nav>
+		</div>
+	<div  class="row" id="view-all-achievement">
+	  <div class="large-8 medium-10 small-centered columns">
+		<% @objects.each do |f| %>
+		  <% if f.respond_to?(:point_metric) %>
+				<br/>
+				<div class="row" style="background-color:#ffffff; padding: 1em; border: outset; border-width: 1px">
+					<ul class="inline-list">
+					  <li>
+					  	  <a href="/profiles?id=<%= f.user.id %>", target="_blank">
+							<% if f.user.profile.avatar.blank? %>
+								<%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+							<% else %>
+								<%= image_tag(f.user.profile.avatar_url(:thumb).to_s, size: "75x75") if f.user.profile.avatar? %>
+							<% end %>
+						  </a>
+					  </li>
+					  <li>
+					  	<h3> <%= f.user.name %></h3>
+							<%= f.post %>
+					  </li>
+					</ul>
+					<div class="row">
+						<div class="large-6 medium-7 small-12 columns fontsmall">	
+					  <%  if f.end_time.in_time_zone(Time.zone) > Time.zone.now %>
+						<i>Time remains:</i> <%= distance_of_time_in_words(f.end_time.in_time_zone(Time.zone), Time.zone.now) %><br/>
+					  <% else %>
+					  	<i style="color:red">Ended </i></br>
+					  <% end %>
+							People with <i><b><%= f.point_measure %> <%= f.point_metric %></b></i> wins!
+						</div>
+						<div class="large-6 medium-5 small-12 columns" style="margin-top: 0.3em; opacity: 0.5">
+							<%= link_to "Join challenge", manage_challenges_path(:set_challenge_id => f.id), method: :post, remote: true, class:"button tiny radius" %>
+						</div>
+					</div>
+					<div class="row text-center" >
+					  <% if f.setchallenge? %>
+						<p><%= image_tag f.setchallenge_url.to_s %></p>
+						<br/>
+					  <% end %>
+					</div>
+					<div id="comment<%= f.id %>" style="background-color:rgba(174,186,198,0.5)">
+					  <% unless f.set_challenge_comments.empty? %>
+							<%= render f.set_challenge_comments.last(8) %>
+						<% end %>
+					  	<%= sync_new partial: "set_challenge_comments", resource: SetChallengeComment.new, scope: SetChallengeComment.by_set_challenge(f) %>
+					</div>
+					<%= form_for(@set_challenge_comment, remote: true) do |c| %>
+						<%= c.hidden_field :set_challenge_id, :value => f.id %>
+							<%= c.text_field :comment %>
+							<div class="row">
+								<div class="small-6 columns"><%= c.submit "Comment", class:"button tiny secondary radius", onclick: "hideallsetForm()" %></div>
+								<div class="small-6 columns">
+									<ul class="inline-list">
+									  <li>	
+										<a data-remote="true" href="/activities/fav?challenge=<%= f.id %>">
+											<%= image_tag "fav.png", size: "35x35" %>
+										</a>
+									  </li>
+									  <li>
+										<div class="right" id="fav<%= f.id %>">
+											<% if f.no_of_fav != 0 %>
+												<h4><%= f.no_of_fav %></h4>
+											<% end %>
+										</div>
+									  </li>
+									</ul>
+								</div>
+							</div>
+					<% end %> 
+				</div>
+			<% elsif f.respond_to?(:content) %>
+		  		<br/>
+				<div class="row" style="background-color:#ffffff; padding: 1em; border: outset; border-width: 1px" >
+				  <ul class="inline-list">	
+				  	<li>
+						  <a href="/profiles?id=<%= f.user_id %>", target="_blank">
+							<% if f.user.profile.avatar.blank? %>
+					        <%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+					    <% else %>
+					        <%= image_tag(f.user.profile.avatar_url(:thumb).to_s, size: "75x75") if f.user.profile.avatar? %>
+					    <% end %></a>
+					</li>
+					<li>
+						<h3><%= f.user.name %></h3>
+						<p><%= f.content %></p>
+					</li>
+				  </ul>
+				  <div class="row" style="padding: 0em 1em 0em 1em">
+				  	<% if f.set_challenge.user.id == current_user.id && f.user_id != current_user.id && already_friend(f.user_id, @friendship1, @friendship2) == false && f.set_challenge.end_time <= Time.zone.now %>
+							<%= link_to "Add Friend", friendships_path(:friend_id => f.user_id), class:"button tiny success radius", :method => :post %>	
+					<% end %>
+				  	<p class="right"><a href="/relatedchallenge?id=<%= f.set_challenge_id %>", target="_blank", style="color:black; background-color:rgba(56,112,109,0.2); padding: 0.1em">--- Points: <%= f.point %></a> </p>
+				  </div>
+				<p><%= image_tag f.joinchallenge_url.to_s if f.joinchallenge? %>
+					<div id="comment<%= f.id %>" style="background-color:rgba(174,186,198,0.5)">
+						<% unless f.join_challenge_comments.empty? %>
+							<%= render f.join_challenge_comments.last(8) %>
+						<% end %>
+						  	<%= sync_new partial: "join_challenge_comments", resource: JoinChallengeComment.new, scope: JoinChallengeComment.by_join_challenge(f) %>
+					</div>
+					<%= form_for(@join_challenge_comment, remote: true) do |c| %>
+							<%= c.hidden_field :join_challenge_id, :value => f.id %>
+							<%= c.text_field :comment %>
+								<div class="row">
+									<div class="small-6 columns"><%= c.submit "Comment", class:"button tiny secondary radius", onclick: "hidealljoinForm()" %></div>
+									<div class="small-6 columns">
+									  <ul class="inline-list">
+									  	<li>
+											<a data-remote="true" href="/fav?challenge=<%= f.id %>">
+										  		<img alt="fav" height="35" src="/assets/fav.png" width="35">
+											</a>
+										</li>
+										<li>
+											<div id="fav<%= f.id %>">
+												<% if f.no_of_fav != 0 %>
+										  			<h5><%= f.no_of_fav %></h5>
+												<% end %>
+											</div>
+										</li>
+									  </ul>
+									</div>	
+								</div>
+					<% end %> 	
+				</div>
+		  	<% end %>
+		<% end %>
+	  </div>	
+		<div id="ajax-pagination"><br/><div class="text-center"><%= link_to_next_page @objects, 'More...', remote: :true, class: "button tiny alert" %></div></div>
+	</div> 
+	<div style="background-color:rgba(255,255,255,0.5); position:fixed; bottom:0px; opacity: 0.9; height: 37px; width: 100%">
+	  <div class="row">
+		<div class="small-6 columns" id="post-with-manage-challenges"><%= render 'manage_challenges/show' %></div>
+		<div class="small-6 columns"><%= link_to "Friend's status", friend_activities_path, class: "button small alert postfix" %></div>
+	  </div>
+  	</div>	
+<% if current_user.sign_in_count <= 1 && current_user.location.latitude == 37.7771186828613 %>
+<ol class="joyride-list" data-joyride>
+  <li data-id="firstStopintro" data-text="Next" data-options="tip_location: top; prev_button: false">
+    <p>Welcome. Let's checkout our coolest features in a few steps!</p>
+  </li>
+  <li data-id="secondStopintro" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev">
+    <h4>Home page!</h4>
+    <p>This is where you share your awesomeness with people around on a contest.</p>
+  </li>
+  <li data-id="thirdStopintro" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev">
+    <h4>Meetup search!</h4>
+    <p>Find a great place for your date here.</p>
+  </li>
+  <li data-id="forthStopintro" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev">
+    <h4>Challenge search!</h4>
+    <p>Search for particular contests here.</p>
+  </li>
+  <li data-id="seventhStopintro" data-options="tip_location: right" data-text="Next" data-prev-text="Prev">
+    <h4>Message room!</h4>
+    <p>Keep in touch with your dating partners. Touch this button for more exciting secret!</p>
+  </li>
+  <li data-id="eighthStopintro" data-options="tip_location: right" data-text="Next" data-prev-text="Prev">
+    <h4>Secret whisper!</h4>
+    <p>Tell the person you just met your secret code and keep in touch with him/her for future meetup!</p>
+  </li>
+  <li data-id="ninethStopintro" data-options="tip_location: right" data-text="Next" data-prev-text="Prev">
+    <h4>Add friend!</h4>
+    <p>Enter your friend's 'secret code' here! Make it easy to plan a date.</p>
+  </li>
+  <li data-button="End" data-prev-text="Prev">
+    <h4>Thank you!</h4>
+    <p>Lets your awesomeness guide you from now on. Have a great date!</p>
+  </li>
+</ol>
+<% end %>
+<% else %>
+  	<div id="firstpage" class="row" style="background-color: rgba(255,255,255,0.7); margin-top: 1em; margin-bottom: 2em; box-shadow: -4px 4px 5px #ffffff; min-height: 550px">
+		<%= render "static_pages/first_page" %>
+ 	</div>
+ 	<div id="secondpage" class="row">
+		<%= render "static_pages/second_page" %>
+ 	</div>
+ 	<script>
+		$('#signup').click(function(){
+		    	$('html, body').animate({scrollTop: $('#firstpage').height()+100}, 800);
+		})
+	</script>
+<% end %>

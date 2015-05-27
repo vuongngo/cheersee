@@ -1,0 +1,19 @@
+<a href="#" data-reveal-id="showchallenge" class="button small secondary postfix">Edit my challenge</a>
+<div id="showchallenge" class="reveal-modal" data-reveal>
+	<% @my_challenge.each do |m| %>
+      <div class="row"  style="border-bottom: inset; margin-top: 1em">
+		<div class="large-3 medium-3 small-6 columns"><%= image_tag m.setchallenge_url(:small).to_s if m.setchallenge? %></div>
+		<div class="large-3 medium-3 small-6 columns">
+			<%= link_to "Edit challenge", edit_set_challenge_path(:id => current_user.id, :set_challenge_id => m.id), remote: true, class:"button tiny radius", onclick: "closeDiv1()" %>
+		  	<%= link_to "Delete challenge", set_challenge_path(:id => m.id), method: :delete, class:"button tiny alert radius", data: { confirm: "You sure?" } %>
+		</div>
+		<div class="medium-6 small-12 columns"><h5 style="color:black"><%= m.post %></h5></div>
+	  	</div>
+	<% end %>
+	<a class="close-reveal-modal" id="close-modal1">&#215;</a>
+</div>
+<script>
+	function closeDiv1(){
+		document.getElementById("close-modal1").click();
+	};
+</script>

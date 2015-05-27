@@ -1,0 +1,29 @@
+    <% @response.each do |business| %>
+        <br/>
+        <div class="row" style="background-color:#ffffff; padding: 1em; border: outset; border-width: 1px">
+            <div class="row text-center">
+                <p><%= image_tag business.photos[0].fetch_url(800) if business.photos[0].present? %></p>
+            </div>
+        <br/>
+        <div class="row">
+            <div class="small-7 columns"><h3><%= business.name %></h3></div>
+            <div class="small-5 columns"><%= form_tag('hangout/map', remote: true) do%>
+                <input id="maplat" name="maplat" type="hidden" value="<%= business.lat %>">
+                <input id="maplng" name="maplng" type="hidden" value="<%= business.lng %>">
+                <input id="businessid" name="businessid" type="hidden" value="<%= business.id %>">
+                <%= submit_tag "Show map", class: "button tiny secondary round" %>
+            <% end %>
+            </div>
+        </div>
+        <div class="large-12 columns">
+            <h5>Rating: <%= business.rating %></h5>
+            <p>Address: <%= business.vicinity %>
+        </div>
+                <!-- Form which user submit to share hangout -->
+        <div class="large-12 columns text-center">
+            <%= link_to "Plan your date", new_share_hangout_path(:longitude => business.lng, :latitude => business.lat, :business_name => business.name, :business_location => business.vicinity), class: "button small radius" %>
+        </div>
+        <div class="large-12 columns" id="<%= business.id %>" style="margin-bottom: 1em"></div>
+    </div>
+    <% end %>
+    <div id="ajax-pagination2"><br/><div class="text-center"><%= link_to_next_page @response, 'More...', remote: :true, class: "button tiny alert" %></div></div>

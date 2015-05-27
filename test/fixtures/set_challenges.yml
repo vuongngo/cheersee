@@ -1,0 +1,17 @@
+one:
+ user_id: 1
+ post: Cooking challenge
+ time_span: 19
+ point_metric: second
+ point_measure: highest
+ longitude: 79.7869643
+ latitude: 74.7868643
+
+two:
+ user_id: 2
+ post: Running challenge
+ time_span: 10
+ point_metric: minute
+ point_measure: lowest
+ longitude: 79.7869643
+ latitude: 74.7868643

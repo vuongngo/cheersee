@@ -1,0 +1,10 @@
+<%= form_for(@user_profile, remote: true) do |f| %>
+  <ul class="small-block-grid-6">	
+	<li><%= f.label :gender, "Male", :value => "male" %></li>
+	<li><%= f.radio_button :gender, 'Male' %></li>
+	<li><%= f.label :gender, "Female", :value => "female" %></li>
+	<li><%= f.radio_button :gender, 'Female' %></li>
+	<li><%= f.submit "Done", class:"button  tiny" %></li>
+  </ul>
+<% end %>
+  

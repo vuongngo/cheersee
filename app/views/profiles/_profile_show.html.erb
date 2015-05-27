@@ -1,0 +1,17 @@
+<div class="large-6 medium-8 small-centered columns" style="background-color:rgba(56,112,109,0.5); color:white">
+	<br/>
+	<div class="row" style="margin-top: 0.5em"><%= render "reputations/time_manage" %></div>
+	<br/>
+	<div class="row" style="margin-top: 0.5em">
+		<div class="large-6 medium-8 small-12 columns"><%= image_tag @user_profile.avatar_url.to_s if @user_profile.avatar?%></div>
+		<div class="large-6 medium-4 small-12 columns" style="margin-top: 1em">
+			<div class="small-6 columns"><h3><%= @user_profile.user.name %><h3></div>
+		</div>
+	</div>
+	<br/>
+	<div class="row" style="background-color:rgba(49,147,64,0.5);padding: 0.3em; margin: 0.5em">
+		<div class="small-2 columns"> Intro: </div><div class="small-10 columns"><%= @user_profile.intro %></div>
+	</div>
+	<br/>
+	<%= render "profiles/badges" %>
+</div>

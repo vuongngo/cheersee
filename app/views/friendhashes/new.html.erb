@@ -1,0 +1,22 @@
+<h3>Create friend token </h3>
+<%= form_for @friendhash do |f| %>
+	<%= f.text_field :token, placeholder:"Your secret whisper", onfocus:"getLocation()" %>
+	<div id="location"></div> 
+	<%= f.submit "Share your secret with friends", class:"button" %>
+
+		<script>
+				var x = document.getElementById("location");
+
+				function getLocation() {
+    			if (navigator.geolocation) {
+       			 	navigator.geolocation.getCurrentPosition(showPosition);
+    			} else {
+        			x.innerHTML = "Geolocation is not supported by this browser.";
+    				}
+				}				
+				function showPosition(position) {
+    				x.innerHTML = "<input id='friendhash_lat' name='friendhash[lat]' type='hidden' value='" + position.coords.latitude + "'><input id='friendhash_lng' name='friendhash[lng]' type='hidden' value='" + position.coords.longitude + "'>"
+				}
+
+		</script>
+<% end %>

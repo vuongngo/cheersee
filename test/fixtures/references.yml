@@ -1,0 +1,7 @@
+one:
+ user_id: 1
+ receiver_id: 2
+
+two:
+ user_id: 2
+ receiver_id: 1

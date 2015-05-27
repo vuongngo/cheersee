@@ -1,0 +1,2 @@
+module ManageChallengesHelper
+end

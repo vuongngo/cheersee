@@ -1,0 +1,21 @@
+one:
+ user_id: 1
+ time_early: 2
+ time_late: 3
+ never_come: 1
+ rate_av: 80
+ friendly_av: 50
+ fun_av: 60
+ curiosity_av: 40
+ number_of_rate: 6
+
+two:
+ user_id: 2
+ time_early: 4
+ time_late: 3
+ never_come:2
+ rate_av: 56
+ friendly_av: 86
+ fun_av: 23
+ curiosity_av: 56
+ number_of_rate: 9

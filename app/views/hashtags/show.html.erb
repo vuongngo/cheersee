@@ -1,0 +1,6 @@
+<% if @hashtagged %>
+  <% @hashtagged.each do |f| %>
+	<%= f.setchallenge.post %>
+<% else %>
+  <p>There is no match for the <em><%= params[:hashtag] %></em> hashtag.</p>
+<% end %>

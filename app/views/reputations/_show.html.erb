@@ -1,0 +1,74 @@
+	<h4 style="font-family:Palatino Linotype; color: #000000">Personality</h4>
+	<div class="row" style="padding: 0em 1em 0em 1em">
+		<h5>Overall rating</h5>
+		<div class="progress warning radius round">
+		  <span class="meter" style="width: <%= @reputation.rate_av %>%"></span>
+		</div>
+	</div>
+	<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
+	  <li>
+		<h5>Friendly</h5>
+		<% if @reputation.friendly_av <= 20 %>
+		<div class="progress alert radius round">
+		  <span class="meter" style="width: <%= @reputation.friendly_av %>%"></span>
+		</div>
+		<% elsif @reputation.friendly_av >= 60 %>
+		<div class="progress success radius round">
+		  <span class="meter" style="width: <%= @reputation.friendly_av %>%"></span>
+		</div>
+		<% else %>
+		<div class="progress radius round">
+		  <span class="meter" style="width: <%= @reputation.friendly_av %>%"></span>
+		</div>
+		<% end %>
+	  </li>
+	  <li>
+		<h5>Fun</h5>
+		<% if @reputation.fun_av <= 20 %>
+		<div class="progress alert radius round">
+		  <span class="meter" style="width: <%= @reputation.fun_av %>%"></span>
+		</div>
+		<% elsif @reputation.fun_av >= 60 %>
+		<div class="progress success radius round">
+		  <span class="meter" style="width: <%= @reputation.fun_av %>%"></span>
+		</div>
+		<% else %>
+		<div class="progress radius round">
+		  <span class="meter" style="width: <%= @reputation.fun_av %>%"></span>
+		</div>
+		<% end %>
+	  </li>
+	  <li>
+		<h5>Confidence</h5>
+		<% if @reputation.confidence_av <= 20 %>
+		<div class="progress alert radius round">
+		  <span class="meter" style="width: <%= @reputation.confidence_av %>%"></span>
+		</div>
+		<% elsif @reputation.confidence_av >= 60 %>
+		<div class="progress success radius round">
+		  <span class="meter" style="width: <%= @reputation.confidence_av %>%"></span>
+		</div>
+		<% else %>
+		<div class="progress radius round">
+		  <span class="meter" style="width: <%= @reputation.confidence_av %>%"></span>
+		</div>
+		<% end %>
+	  </li>
+	  <li>
+		<h5>Curiosity</h5>
+		<% if @reputation.curiosity_av <= 20 %>
+		<div class="progress alert radius round">
+		  <span class="meter" style="width: <%= @reputation.curiosity_av %>%"></span>
+		</div>
+		<% elsif @reputation.curiosity_av >= 60 %>
+		<div class="progress success radius round">
+		  <span class="meter" style="width: <%= @reputation.curiosity_av %>%"></span>
+		</div>
+		<% else %>
+		<div class="progress radius round">
+		  <span class="meter" style="width: <%= @reputation.curiosity_av %>%"></span>
+		</div>
+		<% end %>
+	  </li>
+	</ul>
+	<br/>

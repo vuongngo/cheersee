@@ -1,0 +1,60 @@
+<div class="medium-8 medium-centered large-6 large-centered small-11 small-centered columns" style="background-color:rgba(97,48,43,0.5); padding: 1em">
+	<h3> Edit challenge </h3>
+		<%= form_for(@set_challenge, method: :patch, :html => {:multipart => true}, remote: true) do |f| %>
+			<%= f.text_field :post %>
+			<%= f.text_field :time_span %>
+			<label>Point metrics
+		        <select id="set_challenge_point_metric" name="set_challenge[point_metric]">
+		          <option value="second">Seconds</option>
+		          <option value="minute">Minutes</option>
+		          <option value="hour">Hours</option>
+		          <option value="gaming point">Gaming points</option>
+		        </select>
+		     </label>
+		    <label>Setting boundaries
+		        <select id="set_challenge_point_measure" name="set_challenge[point_measure]">
+		          <option value="highest">Highest</option>
+		          <option value="lowest">Lowest</option>
+		        </select>
+		     </label>
+			<p> <%= f.file_field :setchallenge %>
+				<%= f.text_field :remote_setchallenge_url, placeholder: "url of picture" %>
+			</p>
+					<a id="showld" onclick="revealDiv()" class="button tiny secondary">Also edit Badges</a></br>
+					<div id="leaderboardpanel" style="display:none">
+				<%= fields_for(:leaderboard_challenge, @set_challenge.leaderboard_challenge, :html => {:multipart => true}) do |l| %>
+				    <h4>First badge: </h4>  <%= l.text_field :first_badge %>
+				    	<p>
+						   <%= l.file_field :firstpic %>
+						</p>
+
+				    <h4>Second badge: </h4>  <%= l.text_field :second_badge %>
+				    	<p>
+						   <%= l.file_field :secondpic %>
+						</p>
+
+				    <h4>Third badge:</h4>   <%= l.text_field :third_badge %>
+				    	<p>
+						   <%= l.file_field :thirdpic %>
+						</p>
+					<a onclick="hideDiv()">Hide</a><br/>
+				<% end %>
+					</div>
+
+			<%= f.submit "Edit Challenge", class:"button small" %>
+	<% end %>
+
+	<script>
+				var link = document.getElementById("leaderboardpanel");
+				var showlink = document.getElementById("showld");
+
+				function hideDiv() {
+					link.style.display = "none"; 
+				}
+
+				function revealDiv() {
+					link.style.display = "initial"; 
+					showlink.style.display = "none";
+				}
+		</script>	
+</div>

@@ -1,0 +1,19 @@
+one:
+ content: cafe and tea
+ user: micheal
+ share_time: 2014-11-11 00:00:00 +1100
+ business_location: 34 High Street
+ longitude: 43.967683
+ latitude: 97.768643
+ business_name: Little cury
+
+ notify_friend: 0
+two:
+ content: join soccer challenge
+ user: joke
+ share_time: 2014-11-11 00:00:00 +1100
+ business_location: 34 High Street
+ longitude: 43.967683
+ latitude: 97.768643
+ business_name: Little cury
+ notify_friend: 1

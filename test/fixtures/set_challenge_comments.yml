@@ -1,0 +1,9 @@
+one: 
+ set_challenge_id: 1
+ user_id: 1
+ comment: That's really awesome
+
+two: 
+ set_challenge_id: 1
+ user_id: 2
+ comment: Thanks babe

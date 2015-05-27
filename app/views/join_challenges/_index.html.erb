@@ -1,0 +1,7 @@
+<% unless @get_join_challenges.nil? %>	
+	<div class="large-8 large-centered medium-10 medium-centered small-12 small-centered columns" id="join_challenges">
+		<br/>
+		<%= render @get_join_challenges %>
+	<div id="ajax-pagination"><br/><div class="text-center"><%= link_to_next_page @get_join_challenges, 'More...', remote: :true, class: "button tiny alert" %></div></div>
+	</div>
+<% end %>

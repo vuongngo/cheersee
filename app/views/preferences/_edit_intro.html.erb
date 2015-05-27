@@ -1,0 +1,6 @@
+<div class="row">	
+  <%= form_for(@user_preference, remote: true) do |f| %>
+  	<div class="small-8 columns"><%= f.text_field :intro %></div>
+	<div class="small-4 columns end"><%= f.submit "Done", class:"button  tiny" %></div>
+  <% end %>
+</div>

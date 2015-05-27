@@ -1,0 +1,19 @@
+<div>
+<%= form_tag(hangout_messages_path, remote: true, id: "hangout-mes-form") do %>
+	<input id="id" name="id" type="hidden" value="<%= @hid %>">
+	<div class="small-8 columns"><input id="content" name="content" type="text" placeholder="message..."></div>
+	<div class="small-4 columns"><%= submit_tag "Send", class: "button small success",  onclick: "submitForm()" %> </div>
+<% end %>
+</div>
+<script>
+	var form_mes = document.getElementById("hangout-mes-form");
+	function submitForm(){
+		form_mes.style.display = "none";
+		setTimeout(clearForm, 1000); 
+	};
+
+	function clearForm(){
+		form_mes.reset();
+		form_mes.style.display = "initial";
+	}
+</script>

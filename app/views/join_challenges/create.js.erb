@@ -1,0 +1,9 @@
+$("#post-with-manage-challenges").html("<%= escape_javascript(render 'manage_challenges/show') %>");
+$("#view-all-achievement").html("<%= escape_javascript(render 'static_pages/pagination') %>");
+$("#post-achievement").html("<span></span");
+$("#view-all-achievement").foundation('reflow');
+$("#post-with-manage-challenges").foundation('reflow');
+$("#post-achievement").foundation('reflow');
+$("#flash-message").html("<%= escape_javascript(render 'shared/flash') %>");
+$("#flash-message").foundation('reflow');
+

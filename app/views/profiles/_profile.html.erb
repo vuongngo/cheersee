@@ -1,0 +1,20 @@
+<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
+	<li class="text-center">
+		<span id="editavatar"><a data-remote="true" href="/profiles/<%= @user_profile.id %>/edit_avatar"><%= image_tag 'photo_button.png', size: "30x30" %></a>
+		<% if @user_profile.avatar.blank? %>
+			<%= image_tag "noavatar.gif" %>
+		<% else %>
+			<%= image_tag @user_profile.avatar_url.to_s, size: "200x200" if @user_profile.avatar? %>
+		<% end %></span>
+	</li>
+	<li>
+		<div class="row" style="padding: 0.5em">
+			<h3><%= current_user.name %><h3>
+		</div>
+		<div class="row" style="padding: 0.5em">
+			<h5>Gender: <span id="editgender"><%= @user_profile.gender %><a data-remote="true" href="/profiles/<%= @user_profile.id %>/edit_gender" style="margin-left: 1em"><%= image_tag 'edit_button.png', size: "30x30" %></a></span></h5>
+			<h5>Age: <span id="editage"> <%= @user_profile.age %><a data-remote="true" href="/profiles/<%= @user_profile.id %>/edit_age" style="margin-left: 1em"><%= image_tag 'edit_button.png', size: "30x30" %></a></span></h5>
+			<h5>Hometown: <span id="edithometown"> <%= @user_profile.hometown %><a data-remote="true" href="/profiles/<%= @user_profile.id %>/edit_hometown" style="margin-left: 1em"><%= image_tag 'edit_button.png', size: "30x30" %></a></span></h5>
+		</div>
+	</li>
+</ul>

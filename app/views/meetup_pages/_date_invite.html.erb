@@ -1,0 +1,43 @@
+<% if @date_invite.present? %>
+	<% @date_invite.each do |f| %>
+		<div class="row" style="background-color: #ffffff">
+			<div class="small-3 columns" style="padding-top: 0.5em">
+			  <a href="/profiles?id=<%= f.share_hangout.user.id %>", target="_blank">
+				<% if f.share_hangout.user.profile.avatar.blank? %>
+					<%= image_tag("noavatar.gif", size:"100x100", alt: "No avatar") %>
+				<% else %>
+					<%= image_tag(f.share_hangout.user.profile.avatar_url(:thumb).to_s, size: "100x100") if f.share_hangout.user.profile.avatar? %>
+				<% end %>
+			  </a>
+			</div>
+			<div class="small-6 columns end" style="margin-top: 1em">
+				<h5><%= f.share_hangout.user.name %> invites you for a date @ <%= f.share_hangout.share_time.in_time_zone(Time.zone).to_formatted_s(:short) %></h5>		<h6 style="padding-left: 1em">"<%= f.share_hangout.content %>"</h6>		
+				<h3><b><%= f.share_hangout.business_name %></b></h3>
+			</div>
+			<div class="small-3 columns" style="margin-top: 1em">
+				<%= form_tag('meetups/map', remote: true) do%>
+					<input id="latitude" name="latitude" type="hidden" value="<%= f.share_hangout.latitude %>">
+					<input id="longitude" name="longitude" type="hidden" value="<%= f.share_hangout.longitude %>">
+					<button name="button" type="submit" class="button tiny radius secondary">Show map</button>
+				<% end %>
+				<ul class="inline-list">
+					<li><%= form_tag('meetups/yes', remote: true) do%>
+						<input id="sid" name="sid" type="hidden" value="<%= f.share_hangout.id %>">
+						<input id="business_name" name="business_name" type="hidden" value="<%= f.share_hangout.business_name %>">
+						<input id="business_location" name="business_location" type="hidden" value="<%= f.share_hangout.business_location %>">
+						<input id="latitude" name="latitude" type="hidden" value="<%= f.share_hangout.latitude %>">
+						<input id="longitude" name="longitude" type="hidden" value="<%= f.share_hangout.longitude %>">
+						<input id="share_time" name="share_time" type="hidden" value="<%= f.share_hangout.share_time %>">
+						<input id="user_id" name="user_id" type="hidden" value="<%= f.share_hangout.user_id %>">
+						<%= submit_tag "Yes", class: "button tiny radius" %>
+					<% end %> </li>
+					<li><%= form_tag('meetups/invite_no', remote: true) do%>
+						<input id="id" name="id" type="hidden" value="<%= f.id %>">
+						<%= submit_tag "No", class: "button tiny alert radius" %>
+					<% end %></li>
+				</ul>
+			</div>
+		</div>
+	<% end %>
+<% end %>
+<br/>

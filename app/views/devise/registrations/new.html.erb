@@ -1,0 +1,24 @@
+<div class="row">
+	<div class="large-6 medium-8 small-10 columns" style="margin:10px">
+		<h3>Sign-up</h3>
+
+		<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+		  <%= devise_error_messages! %>
+
+		  <div><%= f.label :name %></br>
+ 		  <%= f.text_field :name, :autofocus => true, class: "radius" %></div>
+
+		  <div><%= f.label :email %><br />
+		  <%= f.email_field :email, autofocus: true, class: "radius" %></div>
+
+		  <div><%= f.label :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
+		    <%= f.password_field :password, autocomplete: "off", class: "radius" %></div>
+
+		  <div><%= f.label :password_confirmation %><br />
+		    <%= f.password_field :password_confirmation, autocomplete: "off", class: "radius" %></div>
+
+		  <div><%= f.submit "Sign up", class:"button small success radius" %></div>
+
+		<% end %>
+	</div>
+</div>

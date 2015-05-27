@@ -1,0 +1,13 @@
+one: 
+ user_id: 1
+ token: Hello world
+ limit_no: 3
+ lat: 75.966432
+ lng: 97.768432
+
+two: 
+ user_id: 2
+ token: Tweet sweet
+ limit_no: 3
+ lat: 37.669834
+ lng: 73.786834

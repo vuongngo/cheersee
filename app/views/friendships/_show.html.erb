@@ -1,0 +1,23 @@
+ <h4>Friends</h4>
+ <% @friendship1.each do |f1| %>
+	<a href="/profiles?id=<%= f1.friend.id %>", target="_blank">
+		<% if f1.friend.profile.avatar.blank? %>
+			<%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+		<% else %>
+			<%= image_tag(f1.friend.profile.avatar_url(:thumb).to_s, size: "45x45") if f1.friend.profile.avatar? %>
+		<% end %>
+	</a> 
+ 	<%= f1.friend.name %>
+ 	<%= link_to "Unfriend", friendship_path(:id => current_user.id, :friend_id => f1.friend_id), remote: true, class:"button tiny alert radius", :method => :delete %>
+ <% end %>
+ <% @friendship2.each do |f2| %>
+	<a href="/profiles?id=<%= f2.user.id %>", target="_blank">
+		<% if f2.user.profile.avatar.blank? %>
+			<%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+		<% else %>
+			<%= image_tag(f2.user.profile.avatar_url(:thumb).to_s, size: "45x45") if f2.user.profile.avatar? %>
+		<% end %>
+	</a> 
+ 	<%= f2.user.name %>
+ 	<%= link_to "Unfriend", friendship_path(:id => current_user.id, :user_id => f2.user_id), remote: true, class:"button tiny alert radius", :method => :delete %>
+ <% end %>

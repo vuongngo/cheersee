@@ -1,0 +1,7 @@
+<p>
+	<% if set_challenge_comment.user.profile.avatar.blank? %>
+		<%= image_tag("noavatar.gif", size:"35x35", alt: "No avatar") %>
+	<% else %>
+		<%= image_tag(set_challenge_comment.user.profile.avatar_url(:thumb).to_s, size: "35x35") if set_challenge_comment.user.profile.avatar? %>
+	<% end %>	
+	<b><%= set_challenge_comment.user.name %></b> -- <%= set_challenge_comment.comment %>

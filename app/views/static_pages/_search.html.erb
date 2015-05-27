@@ -1,0 +1,8 @@
+<!-- Search and request friendship -->
+	<h5 style="margin-left:2em" id="<%= @friend.user_id %>uid"><%= @friend.user.name %> <%= link_to "Request friend", friendships_path(:friend_id => @friend.user_id), class:"button tiny", :method => :post %></h5>
+	<script>
+		var link = document.getElementById("<%= @friend.user_id %>uid");
+		function hideDiv() {
+          link.style.display = "none"; 
+        }
+    </script>

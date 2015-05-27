@@ -1,0 +1,8 @@
+<% if @nearby_users.present? %>
+$("#ajax-pagination1").html("<%= escape_javascript(render 'location_search/pagination1') %>");
+$("#ajax-pagination1").foundation('reflow');
+<% end %>
+<% if @response.present? %>
+$("#ajax-pagination2").html("<%= escape_javascript(render 'location_search/pagination2') %>");
+$("#ajax-pagination2").foundation('reflow');
+<% end %>

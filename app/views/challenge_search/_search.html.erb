@@ -1,0 +1,129 @@
+<div class="large-8 medium-10 small-centered columns">
+	<% @hashtags.each do |f| %>
+
+	  <% if f.respond_to?(:point_metric) %>
+<!-- start -->
+		<br/>
+		<div class="row" style="background-color:#ffffff; padding: 1em; border: outset; border-width: 1px">
+			<ul class="inline-list">
+			  <li>
+			  	  <a href="/profiles?id=<%= f.user.id %>", target="_blank">
+					<% if f.user.profile.avatar.blank? %>
+						<%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+					<% else %>
+						<%= image_tag(f.user.profile.avatar_url(:thumb).to_s, size: "75x75") if f.user.profile.avatar? %>
+					<% end %>
+				  </a>
+			  </li>
+			  <li>
+			  	<h3> <%= f.user.name %></h3>
+					<%= f.post %>
+			  </li>
+			</ul>
+			<div class="row">
+				<div class="large-6 medium-7 small-12 columns fontsmall">	
+			  <%  if f.end_time.in_time_zone(Time.zone) > Time.zone.now %>
+				<i>Time remains:</i> <%= distance_of_time_in_words(f.end_time.in_time_zone(Time.zone), Time.zone.now) %><br/>
+			  <% else %>
+			  	<i style="color:red">Ended </i></br>
+			  <% end %>
+					People with <i><b><%= f.point_measure %> <%= f.point_metric %></b></i> wins!
+				</div>
+				<div class="large-6 medium-5 small-12 columns" style="margin-top: 0.3em; opacity: 0.5">
+					<%= link_to "Join challenge", manage_challenges_path(:set_challenge_id => f.id), method: :post, remote: true, class:"button tiny radius" %>
+				</div>
+			</div>
+			<div class="row text-center" >
+			  <% if f.setchallenge? %>
+				<p><%= image_tag f.setchallenge_url.to_s %></p>
+				<br/>
+			  <% end %>
+			</div>
+			<div id="comment<%= f.id %>" style="background-color:rgba(174,186,198,0.5)">
+			  <% unless f.set_challenge_comments.empty? %>
+					<%= render f.set_challenge_comments.last(8) %>
+				<% end %>
+			  	<%= sync_new partial: "set_challenge_comments", resource: SetChallengeComment.new, scope: SetChallengeComment.by_set_challenge(f) %>
+			</div>
+			<%= form_for(@set_challenge_comment, remote: true) do |c| %>
+				<%= c.hidden_field :set_challenge_id, :value => f.id %>
+					<%= c.text_field :comment %>
+					<div class="row">
+						<div class="small-6 columns"><%= c.submit "Comment", class:"button tiny secondary radius", onclick: "hideallsetForm()" %></div>
+						<div class="small-6 columns">
+							<ul class="inline-list">
+							  <li>	
+								<a data-remote="true" href="/activities/fav?challenge=<%= f.id %>">
+									<%= image_tag "fav.png", size: "35x35" %>
+								</a>
+							  </li>
+							  <li>
+								<div class="right" id="fav<%= f.id %>">
+									<% if f.no_of_fav != 0 %>
+										<h4><%= f.no_of_fav %></h4>
+									<% end %>
+								</div>
+							  </li>
+							</ul>
+						</div>
+					</div>
+			<% end %> 
+		</div>
+	  <!-- end -->
+	<% elsif f.respond_to?(:content) %>
+	<br/>
+	<div class="row" style="background-color:#ffffff; padding: 1em; border: outset; border-width: 1px" >
+	  <ul class="inline-list">	
+	  	<li>
+			  <a href="/profiles?id=<%= f.user_id %>", target="_blank">
+				<% if f.user.profile.avatar.blank? %>
+		        <%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+		    <% else %>
+		        <%= image_tag(f.user.profile.avatar_url(:thumb).to_s, size: "75x75") if f.user.profile.avatar? %>
+		    <% end %></a>
+		</li>
+		<li>
+			<h3><%= f.user.name %></h3>
+			<p><%= f.content %></p>
+		</li>
+	  </ul>
+	  <div class="row" style="padding: 0em 1em 0em 1em">
+	  	<% if f.set_challenge.user.id == current_user.id && f.user_id != current_user.id && already_friend(f.user_id, @friendship1, @friendship2) == false && f.set_challenge.end_time <= Time.zone.now %>
+				<%= link_to "Add Friend", friendships_path(:friend_id => f.user_id), class:"button tiny success radius", :method => :post %>	
+		<% end %>
+	  	<p class="right"><a href="/relatedchallenge?id=<%= f.set_challenge_id %>", target="_blank", style="color:black; background-color:rgba(56,112,109,0.2); padding: 0.1em">--- Points: <%= f.point %></a> </p>
+	  </div>
+	<p><%= image_tag f.joinchallenge_url.to_s if f.joinchallenge? %>
+		<div id="comment<%= f.id %>" style="background-color:rgba(174,186,198,0.5)">
+			<% unless f.join_challenge_comments.empty? %>
+				<%= render f.join_challenge_comments.last(8) %>
+			<% end %>
+			  	<%= sync_new partial: "join_challenge_comments", resource: JoinChallengeComment.new, scope: JoinChallengeComment.by_join_challenge(f) %>
+		</div>
+		<%= form_for(@join_challenge_comment, remote: true) do |c| %>
+				<%= c.hidden_field :join_challenge_id, :value => f.id %>
+				<%= c.text_field :comment %>
+					<div class="row">
+						<div class="small-6 columns"><%= c.submit "Comment", class:"button tiny secondary radius", onclick: "hidealljoinForm()" %></div>
+						<div class="small-6 columns">
+						  <ul class="inline-list">
+						  	<li>
+								<a data-remote="true" href="/fav?challenge=<%= f.id %>">
+							  		<img alt="fav" height="35" src="/assets/fav.png" width="35">
+								</a>
+							</li>
+							<li>
+								<div id="fav<%= f.id %>">
+									<% if f.no_of_fav != 0 %>
+							  			<h5><%= f.no_of_fav %></h5>
+									<% end %>
+								</div>
+							</li>
+						  </ul>
+						</div>	
+					</div>
+		<% end %> 	
+	</div>
+  <% end %>
+  <% end %>
+</div>	

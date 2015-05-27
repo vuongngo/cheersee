@@ -1,0 +1,7 @@
+<div>
+<%= form_tag(friend_messages_path, remote: true, id: "friend-mes-form") do %>
+	<input id="id" name="id" type="hidden" value="<%= @fid %>">
+	<div class="small-8 columns"><input id="content" name="content" type="text" placeholder="message..."></div>
+	<div class="small-4 columns"><%= submit_tag "Send", class: "button small success", onclick: "submitForm()" %> </div>
+<% end %>
+</div>

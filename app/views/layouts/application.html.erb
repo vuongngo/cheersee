@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cheersee</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "vendor/modernizr" %>
+  <%= javascript_include_tag Sync.adapter_javascript_url %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= render "layouts/header" %>
+<%= render "layouts/footer" %>
+<% unless user_signed_in? %>
+  <%= render "static_pages/footer" %>
+  <style>
+  	@media only screen and (min-width: 64.063em) { body { background-image: url("<%= image_path('blarge.png') %>") ;} }
+  	@media only screen and (min-width: 40.063em) and (max-width: 64em) { body { background-image: url("<%= image_path('bmedium.png') %>") ;} }
+  	@media only screen and (max-width: 40em) { body { background-image: url("<%= image_path('bsmall.png') %>") ;} }
+  </style>
+<% end %>
+</body>
+</html>

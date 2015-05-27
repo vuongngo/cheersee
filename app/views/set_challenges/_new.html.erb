@@ -1,0 +1,54 @@
+<a href="#" data-reveal-id="createchallenge" class="button small success prefix">Create new challenge</a>
+	<div id="createchallenge" class="reveal-modal" data-reveal>
+	<%= form_for(@set_challenge, :html => {:multipart => true}, remote: true, method: :post) do |f| %>
+		Post: <%= f.text_field :post, onfocus:"getLocation1()", placeholder:"Eg: 100m #running challenge running" %>
+		For how long? (days): <%= f.text_field :time_span, placeholder:"Eg: 10" %>
+		Which measurement do you use?
+	    <div id="pointmetric">
+	        <select id="set_challenge_point_metric" name="set_challenge[point_metric]">
+	          <option value="second">Seconds</option>
+	          <option value="minute">Minutes</option>
+	          <option value="hour">Hours</option>
+	          <option value="gaming point">Gaming points</option>
+	        </select>
+	        <button type="button" class="secondary tiny button" onclick="changeMetric()">Other metric?</button>
+	    </div>
+
+   
+	    How do you define winner?
+	        <select id="set_challenge_point_measure" name="set_challenge[point_measure]">
+	          <option value="highest">Highest</option>
+	          <option value="lowest">Lowest</option>
+	        </select>
+	      
+		<%= f.file_field :setchallenge %>
+		<%= f.text_field :remote_setchallenge_url, placeholder:"Image url" %>
+		<%= f.hidden_field :no_of_fav, value: "0" %>
+		<div id="setchallengelocale"></div>    
+		<%= f.submit "Set challenge", class:"button small", onclick: "closeDiv()" %>
+	<% end %>
+			<a id="close-modal" class="close-reveal-modal">&#215;</a>
+	</div>
+			<script>
+				var y = document.getElementById("setchallengelocale");
+				function getLocation1() {
+    			if (navigator.geolocation) {
+       			 	navigator.geolocation.getCurrentPosition(showPosition1);
+    			} else {
+        			y.innerHTML = "Geolocation is not supported by this browser.";
+    				}
+				}				
+				function showPosition1(position) {
+    				y.innerHTML = "<input id='set_challenge_latitude' name='set_challenge[latitude]' type='hidden' value='" + position.coords.latitude + "'><input id='set_challenge_longitude' name='set_challenge[longitude]' type='hidden' value='" + position.coords.longitude + "'>"
+				};
+
+				var m = document.getElementById("pointmetric");
+				var text = "<input id='set_challenge_point_metric' name='set_challenge[point_metric]' type='text' placeholder='metter'>";
+				function changeMetric() {
+					m.innerHTML = text;
+				};
+
+				function closeDiv(){
+					document.getElementById("close-modal").click();
+				}
+			</script>

@@ -1,0 +1,4 @@
+# Location-based dating app 
+* Backend: Ruby on Rails
+* Front-end: Foundation
+* [Prototype](http://cheersee.herokuapp.com)

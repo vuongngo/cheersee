@@ -1,0 +1,15 @@
+one:
+ user_id: 1
+ set_challenge_id: 1
+ point: 67
+ longitude: 89.763456
+ latitude: 35.687034
+ content: I got it!
+
+two:
+ user_id: 2
+ set_challenge_id: 1
+ point: 69
+ longitude: 46.767545
+ latitude: 25.65465435
+ content: Hura! Hehe

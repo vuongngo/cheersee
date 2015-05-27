@@ -1,0 +1,9 @@
+one: 
+ user_id: 1
+ question: Why dont you have real time?
+ answer: It'll be available soon.
+
+two: 
+ user_id: 1
+ question: How do I invite friend?
+ answer: Using the secret token.

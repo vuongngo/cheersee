@@ -1,0 +1,11 @@
+michael:
+ name: Michael Example
+ email: michael@example.com
+ encrypted_password: 2864hfy889ay54866yar9893578atarr
+ confirmed_at: <%= Time.zone.now %>
+
+joke:
+ name: joke Example
+ email: joke@example.com
+ encrypted_password: 2864hfraerwry54866yar9893578atarr
+ confirmed_at: <%= Time.zone.now %> 

@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="large-8 medium-10 small-centered columns" id="add-email" >
+    <h3>Add Email</h3>
+    <%= form_for(current_user, :as => 'user', :url => finish_signup_path(current_user), :html => { role: 'form'}) do |f| %>
+      <% if @show_errors && current_user.errors.any? %>
+        <div id="error_explanation">
+          <% current_user.errors.full_messages.each do |msg| %>
+            <%= msg %><br>
+          <% end %>
+        </div>
+      <% end %>
+        <%= f.label :email %>
+        <%= f.text_field :email, :autofocus => true, :value => '', class: 'form-control input-lg', placeholder: 'Example: email@me.com', class: "radius" %>
+        <%= f.submit 'Continue', :class => 'button small success radius' %>
+    <% end %>
+    Thank you! Please confirm your email.
+  </div>
+</div>

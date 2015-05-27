@@ -1,0 +1,77 @@
+<% @ref.each do |r| %>
+<div class="large-6 small-centered columns" style="background-color: #ac2f29">
+	<br/>
+		<%= form_tag('meetups/ref', remote: true) do %>
+
+				<h4>How was your meetup with 
+					<% if r.receiver.profile.avatar.blank? %>
+						<%= image_tag("noavatar.gif", size:"35x35", alt: "No avatar") %>
+					<% else %>
+					    <%= image_tag(r.receiver.profile.avatar_url(:thumb).to_s, size: "35x35") if r.receiver.profile.avatar? %>
+					<% end %>
+					 <%= r.receiver.name %>?</h4>
+				<input id="reference_id" name="reference_id" type="hidden" value="<%= r.id %>">
+				<input id="manage_1" name="time_management_id" type="radio" value="1" onchange="revealDiv()">
+				<%= label_tag(:manage_early, "Early") %>
+				<input id="manage_2" name="time_management_id" type="radio" value="2" onchange="revealDiv()">
+				<%= label_tag(:manage_late, "Late") %>
+				<input id="manage_3" name="time_management_id" type="radio" value="3" onchange="hideDiv()">
+				<%= label_tag(:manage_never, "Missed") %>
+				<h4>How do you rate <%= r.receiver.name %>?</h4>
+				<div id="ref-form">
+					<h5>Rating:</h5>
+				<div class="range-slider" data-slider>
+  					<span class="range-slider-handle" role="slider" tabindex="0"></span>
+  					<span class="range-slider-active-segment"></span>
+  					<input id="rate" name="rate" type="hidden">
+				</div>
+					<h5>Friendly:</h5>
+				<div class="range-slider" data-slider>
+  					<span class="range-slider-handle" role="slider" tabindex="0"></span>
+  					<span class="range-slider-active-segment"></span>
+  					<input id="friendly" name="friendly" type="hidden">
+				</div>
+					<h5>Fun:</h5>
+				<div class="range-slider" data-slider>
+  					<span class="range-slider-handle" role="slider" tabindex="0"></span>
+  					<span class="range-slider-active-segment"></span>
+  					<input id="fun" name="fun" type="hidden">
+				</div>
+					<h5>Confidence:</h5>
+				<div class="range-slider" data-slider>
+  					<span class="range-slider-handle" role="slider" tabindex="0"></span>
+  					<span class="range-slider-active-segment"></span>
+  					<input id="confidence" name="confidence" type="hidden">
+				</div>
+					<h5>Curiosity:</h5>
+				<div class="range-slider" data-slider>
+  					<span class="range-slider-handle" role="slider" tabindex="0"></span>
+  					<span class="range-slider-active-segment"></span>
+  					<input id="curiosity" name="curiosity" type="hidden">
+				</div>
+				<input class="large-5 columns" id="comment" name="comment" type="text" placeholder="How do you feel about <%= r.receiver.name %>?">
+				</div>
+				<div class="row">
+				<div class="small-6 columns">
+				<button name="button" type="submit" class="button small right">Send</button></div>
+		<% end %>
+				<div class="small-6 columns">
+					<%= link_to "Add Friend", friendships_path(:friend_id => r.receiver.id), class:"button small success left", :method => :post, remote: :true %>
+				</div>
+			</div>
+		</div>
+
+
+
+		<script>
+				var link = document.getElementById("ref-form");
+
+				function hideDiv() {
+					link.style.display = "none"; 
+				}
+
+				function revealDiv() {
+					link.style.display = "initial"; 
+				}
+		</script>	
+<% end %>

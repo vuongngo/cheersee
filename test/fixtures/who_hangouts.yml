@@ -1,0 +1,19 @@
+one:
+ id: 1
+ hangout_id: 1
+ user_id: 1
+
+two:
+ id: 2
+ hangout_id: 1
+ user_id: 2
+
+three:
+ id: 3
+ hangout_id: 2
+ user_id: 1
+
+four:
+ id: 4
+ hangout_id: 2
+ user_id: 3

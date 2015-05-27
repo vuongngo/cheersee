@@ -1,0 +1,24 @@
+<% if @ref.present? %>
+	<div class="row" style="margin: 0.5em; padding:0.5em; background-color:rgba(56,112,109,0.5)">
+	<% @ref.each do |f| %>
+		<% if f.feedback.present? %>
+		  <div class="row">
+		  	<div class="small-6 columns">
+				<h3><% if f.user.profile.avatar.blank? %>
+			        <%= image_tag("noavatar.gif", size:"40x40", alt: "No avatar") %>
+			    <% else %>
+			        <%= image_tag(f.user.profile.avatar_url(:thumb).to_s, size: "40x40") if f.user.profile.avatar? %>
+			    <% end %>
+				 <%= f.user.name %>:</h3>
+			</div>
+			<div class="small-6 columns">
+			  <b><%= f.feedback.comment %></b>
+			</div>
+		  </div>
+		<% end %>
+		<br/>
+	<% end %>
+	</div>
+<% end %>
+
+

@@ -1,0 +1,7 @@
+one:
+ user_id: 2
+ share_hangout: 1
+
+two:
+ user_id: 3 
+ share_hangout: 1

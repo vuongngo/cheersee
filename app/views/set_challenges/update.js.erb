@@ -1,0 +1,6 @@
+$("#flash-message").prepend("<%= escape_javascript(render 'shared/flash') %>");
+$("#flash-message").foundation('reflow');
+$("#edit-my-challenges").html("<span></span>");
+$("#edit-my-challenges").foundation('reflow');
+$("#set_challenges").html("<%= escape_javascript(raw render @set_challenges) %>");
+$("#set_challenges").foundation('reflow');

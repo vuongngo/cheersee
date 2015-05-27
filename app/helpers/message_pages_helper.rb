@@ -1,0 +1,2 @@
+module MessagePagesHelper
+end

@@ -1,0 +1,23 @@
+<div class="contain-to-grid sticky" style="height: 3.5em; opacity: 0.9">
+  			<nav data-topbar role="navigation" data-options="sticky_on: large">
+			  <div class="row" style="padding-top:0.6em">
+			  	<div class="large-12 columns">
+			      <div class="row collapse">
+			        <div class="small-6 columns">
+			          <% if @set_challenge.present? %>
+			     		<div id="create-challenges"><%= render 'set_challenges/new' %></div>
+			     	  <% end %>
+			     	</div>
+			        <div class="small-6 columns">
+			          <% if @my_challenge.present? %>
+			     		<div id="my-challenges"><%= render 'set_challenges/show' %></div>
+			     	  <% end %>
+			        </div>
+			      </div>
+			    </div>
+			</div> 
+			</nav>
+		</div>   
+<div class="row" id="edit-my-challenges"></div>
+<div class="row" id="view-challenges"><%= render 'set_challenges/index' %></div>
+

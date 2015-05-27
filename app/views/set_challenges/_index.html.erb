@@ -1,0 +1,6 @@
+<% unless @get_challenges.nil? %>
+  <div class="large-8 medium-10 small-centered columns" id="set_challenges">
+	<%= render @get_challenges %>
+	<div id="ajax-pagination"><br/><div class="text-center"><%= link_to_next_page @get_challenges, 'More...', remote: :true, class: "button tiny alert" %></div></div>
+  </div>	
+<% end %>

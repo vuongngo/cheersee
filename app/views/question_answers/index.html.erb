@@ -1,0 +1,13 @@
+<div class="row">
+	<br/>
+	<div class="large-10 medium-11 small-centered columns" style="background-color:#ffffff; color: #61302b; padding: 1em">
+      <% if user_signed_in? %>
+		<div class="row" id="contactus" style="padding: 1em"><%= link_to "Contact us", new_contact_me_path, remote: :true, class: "button small radius" %></div>
+	  <% end %>
+		<% @question_answers.each do |f| %>
+			<h4><%= f.question %></h4>
+			<p><%= f.answer %></p>
+		<% end %>
+	</div>
+</div>
+<br/>

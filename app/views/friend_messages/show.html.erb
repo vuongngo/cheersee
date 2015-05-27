@@ -1,0 +1,25 @@
+<br/>
+<div class="row" id="message_body">	
+	<div class="large-6 medium-9 small-centered columns" id="hmessages" style="background-color: white">
+	  <% if @friend_messages.present? %>
+		<% @friend_messages.each do |friend_message| %>
+		  <%= sync partial: "messages", resource: friend_message %>
+		<% end %>
+	<% end %>
+		  <%= sync_new partial: "messages", resource: FriendMessage.new %>
+	<div class="large-6 small-centered columns" id="hmesform" style="position:fixed; bottom:0"><%= render "friend_messages/form" %></div>
+</div>
+</div>
+<script>
+	var form_mes = document.getElementById("friend-mes-form");
+	function submitForm(){
+		form_mes.style.display = "none";
+		setTimeout(clearForm, 1000); 
+	};
+
+	function clearForm(){
+		form_mes.reset();
+		form_mes.style.display = "initial";
+	}
+</script>
+

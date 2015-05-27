@@ -1,0 +1,102 @@
+<% if user_signed_in? %>
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+    <nav class="tab-bar">
+      <section class="left-small">
+        <a class="left-off-canvas-toggle" href="#"><span><%= image_tag 'menu.png', size: "25x30" %></span></a>
+      </section>
+      <section class="middle tab-bar-section">
+            <div class="row">
+                  <div class="large-1 small-3 columns"><a href="/" id="secondStopintro"><%= image_tag("logo.png", size: "35x35") %></a></div>
+                <%= form_tag(meetup_path) do %>
+                <div class="large-6 small-9 columns">
+                  <div class="row collapse postfix-round" id="thirdStopintro">
+                    <div class="large-10 medium-9 small-7 columns"  style="margin-top: 5px">
+                     <div id="location">
+                      </div>
+                     <input id="term" name="term" type="text" placeholder="Plan a date now." onfocus="getLocation()" class="small">
+                    </div>
+                    <div class="large-2 medium-3 small-5 columns">
+                      <button type="submit" style="height: 35px; border: 0px; background: transparent; margin: 0px; padding: 0px"><%= image_tag 'placesearch.png', size: "30x35" %></button>
+                    </div>
+                  </div> 
+                </div>
+                <div id="location">
+                </div>             
+    <script>
+        var x = document.getElementById("location");
+
+        function getLocation() {
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+              x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }       
+        function showPosition(position) {
+            x.innerHTML = "<input id='latitude' name='latitude' type='hidden' value='" + position.coords.latitude + "'><input id='longitude' name='longitude' type='hidden' value='" + position.coords.longitude + "'>"
+        }
+
+      </script>
+                <% end %>
+            </div>
+      </section>
+
+      <section class="right-small" id="seventhStopintro">
+        <a class="right-off-canvas-toggle" href="#"><span><%= image_tag 'friendship.png', size: "20x20" %></span><span style="font-size: 11px; color:yellow"><%= @m_not_count.unread_count if @m_not_count.unread_count != 0 %></span></a>
+      </section>
+    </nav>
+    <aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        <li><label>Menu</label></li>
+        <li class="text-center">
+          <a href="/commit">          
+            <% if current_user.profile.avatar.blank? %>
+              <%= image_tag "noavatar.gif", size: "100x100" %>
+            <% else %>
+              <%= image_tag current_user.profile.avatar_url.to_s, size: "100x100" if current_user.profile.avatar?%>
+            <% end %>
+          </a>
+        </li>
+        <li><%= link_to "Profile", profiles_path %></li>
+        <li><%= link_to "Activities", activities_path %></li>
+        <li><a href="/meetups">Meetups <span class="right" style="color:yellow"><%= @h_not_count.unread_count if @h_not_count.unread_count != 0 %></a></li>
+        <li><a href="/general_notifications">Notification <span class="right" style="color:yellow"><%= @g_not_count.unread_count if @g_not_count.unread_count != 0 %></span></a></li>
+        <li><%= link_to "Questions", question_answers_path %></li>
+        <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+        <li><a class="button small" href="https://twitter.com/share" style="font-size:15px" target="_blank">Tweet us!</a></li>
+        <li><a class="button small alert"><div class="fb-share-button" data-href="http://cheersee.co" data-layout="link"></div></a></li>
+      </ul>
+    </aside>
+    <aside class="right-off-canvas-menu" id="friendlist-and-friendhash">
+      <%= render "layouts/friendlist" %>
+    </aside>
+    <section class="main-section" style="min-height: 50em">
+      <div class="row" id="flash-message"><%= render "shared/flash" %></div>
+      <%= yield %>
+    </section>
+  <a class="exit-off-canvas"></a>
+  </div>
+</div>
+<% else %>
+<div class="fixed">
+  <nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+      <li class="name">
+        <h2 style="font-family:Book Antiqua; margin: 0.5em 0em 0em 1em;"><a href="/" style="color: #4A96AD;"><b style="color:#7D1935">Cheer</b><b>see</b></a></h2>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span style="color:grey">Menu</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="right" >
+        <%= render "devise/shared/links" %>
+        <li style="margin: 0.3em 0.4em 0em 0.4em; opacity: 0.7">
+        <%= link_to "Sign-in", new_user_session_path, class: "button success small radius" %>
+        </li>
+      </ul>
+    </section>
+  </nav>
+</div>
+<div class="row" id="flash-message"><%= render "shared/flash" %></div>
+<%= yield %>
+<% end %>

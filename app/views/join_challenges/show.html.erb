@@ -1,0 +1,11 @@
+<div>
+	<h3>Show join challenges</h3>
+	<% @join_challenge.each do |f| %>
+		<p style="color:white"><%= f.set_challenge.post %>
+		<p style="color:white"><%= f.content %>
+		<p style="color:white"><%= f.point %>
+
+		<%= link_to "Edit join challenge", edit_join_challenge_path(:id => current_user.id, :join_challenge_id => f.id), class:"button" %>
+		<%= link_to "Delete join challenge", join_challenge_path(:id => current_user.id, :join_challenge_id => f.id), method: :delete, class:"button" %>
+	<% end %>
+</div>

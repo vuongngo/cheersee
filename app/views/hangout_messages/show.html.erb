@@ -1,0 +1,13 @@
+<br/>
+<div class="row">	
+	<div class="large-6 medium-9 small-centered columns" id="hmessages" style="background-color: white">
+	  <% if @mes.present? %>
+		<% @mes.each do |hangout_message| %>
+			<%= sync partial: "messages", resource: hangout_message %>
+		<% end %>
+	  <% end %>
+	  	<%= sync_new partial: "messages", resource: HangoutMessage.new %>
+	<br/>
+	<div class="large-6 small-centered columns" id="hmesform" style="position:fixed; bottom:0"><%= render "hangout_messages/form" %></div>
+	</div>
+</div>

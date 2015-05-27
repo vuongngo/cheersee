@@ -1,0 +1,9 @@
+one:
+ join_challenge_id: 1
+ user_id: 1
+ comment: wow that's greate
+
+two: 
+ join_challenge_id: 2
+ user_id: 1
+ comment: awesome

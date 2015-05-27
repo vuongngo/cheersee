@@ -1,0 +1,174 @@
+<% @request.each do |f| %>
+	<div class="row"  style="background-color: #e69215">
+		  	<div class="small-3 columns" style="padding: 0.5em">
+				<a href="#" data-reveal-id="modal<%= f.id %>" >
+	              <% if f.user.profile.avatar.blank? %>
+	                <%= image_tag("noavatar.gif", size:"100x100", alt: "No avatar") %>
+	              <% else %>
+	                <%= image_tag(f.user.profile.avatar_url(:thumb).to_s, size: "100x100") if f.user.profile.avatar? %>
+	              <% end %>
+	            </a>
+	        </div>
+	        <div class="small-6 columns" style="padding: 1em">	
+				<h5><%= f.user.name %> sent you a meetup request @ <%= f.share_hangout.share_time.to_formatted_s(:short) %><h5> 
+				<h3>@<%= f.share_hangout.business_name %></h3>
+			</div>
+			<div clas="small-3 columns" style="padding-top: 1em">
+				<%= form_tag('meetups/yes', remote: true) do%>
+					<input id="id" name="id" type="hidden" value="<%= f.id %>">
+					<input id="sid" name="sid" type="hidden" value="<%= f.share_hangout.id %>">
+					<input id="business_name" name="business_name" type="hidden" value="<%= f.share_hangout.business_name %>">
+					<input id="business_location" name="business_location" type="hidden" value="<%= f.share_hangout.business_location %>">
+					<input id="latitude" name="latitude" type="hidden" value="<%= f.share_hangout.latitude %>">
+					<input id="longitude" name="longitude" type="hidden" value="<%= f.share_hangout.longitude %>">
+					<input id="share_time" name="share_time" type="hidden" value="<%= f.share_hangout.share_time %>">
+					<input id="user_id" name="user_id" type="hidden" value="<%= f.user_id %>">
+					<%= submit_tag "Yes", class: "button tiny radius" %>
+				<% end %> </li>
+				<%= form_tag('meetups/no', remote: true) do%>
+					<input id="id" name="id" type="hidden" value="<%= f.id %>">
+					<%= submit_tag "No", class: "button tiny alert radius" %>
+				<% end %>
+			</div>	
+	</div>
+	<br/>
+
+	<div id="modal<%= f.id %>" class="reveal-modal" data-reveal  style="background-color: #ffffff">
+	<div class="row">
+	    <br/>
+	    <div>
+	      <% if f.user.reputation.time_early.present? || f.user.reputation.time_late.present? || f.user.reputation.never_come.present? %>
+	        <% if f.user.reputation.time_early == 0 && f.user.reputation.time_late == 0 && f.user.reputation.never_come == 0 %>
+	        <% else %>
+		  <div class="small-11 small-centered columns stackbar" style="width: 90%">
+            <span data-tooltip aria-haspopup="true" class="has-tip" data-options="show_on:large" title="Early">
+              <div style="width:<%= f.user.reputation.time_early/f.user.reputation.number_of_rate*100 %>%; background-color: #43AC6A"></div>
+            </span>
+            <span data-tooltip aria-haspopup="true" class="has-tip" data-options="show_on:large" title="Late">
+              <div style="width:<%= f.user.reputation.time_late/f.user.reputation.number_of_rate*100 %>%; background-color: #f08a24"></div>
+            </span>
+            <span data-tooltip aria-haspopup="true" class="has-tip" data-options="show_on:large" title="Missed">
+              <div style="width:<%= f.user.reputation.never_come/f.user.reputation.number_of_rate*100 %>%; background-color: #f04124"></div>
+            </span>
+          </div>
+        <% end %>
+	  <% end %>
+	  <style>
+	    .stackbar div {
+	        float:left;
+	        height:30px;
+	    }
+	  </style></div>
+	    <br/>
+	    <br/>
+		<div class="row">
+	        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
+	            <li class="text-center">
+	                <span id="editavatar"><% if current_user.id == f.user_id %><a data-remote="true" href="/profiles/<%= f.user.id %>/edit_avatar"><%= image_tag 'photo_button.png', size: "30x30" %></a><% end %>
+	                <% if f.user.profile.avatar.blank? %>
+	                    <%= image_tag "noavatar.gif" %>
+	                <% else %>
+	                    <%= image_tag f.user.profile.avatar_url.to_s, size: "200x200" if f.user.avatar?%>
+	                <% end %></span>
+	            </li>
+	            <li>
+	                <div class="row" style="padding: 0.5em">
+	                    <h3><%= f.user.name %><h3>
+	                </div>
+	                <div class="row" style="padding: 0.5em">
+	                    <h5>Gender: <%= f.user.profile.gender %></h5>
+	                    <h5>Age: <%= f.user.profile.age %></h5>
+	                    <h5>Hometown: <%= f.user.profile.hometown %></h5>
+	                    <div id="badge<%= f.id %>"><%= link_to "Show badges", show_badge_path(:user_id => f.user_id, :hid => f.id), method: :post, remote: :true, class: "button small secondary radius" %></div>
+	                </div>
+	            </li>
+	        </ul>
+	    </div> 
+	  	<br/>
+	  	<div class="row">
+	        <h4>Who I am</h4>
+	        <p id="preferenceintro"><%=f.user.preference.intro %></p>
+	        <h4>My passion</h4>
+	        <p id="preferencepassion"><%=f.user.preference.passion %></p>
+	        <h4>I'm interest in</h4>
+	        <p id="preferenceinterest"><%=f.user.preference.interest %></p>
+    	</div>
+	    <div class="row">
+	        <h4 style="font-family:Palatino Linotype; color: #000000">Personality</h4>
+	        <div class="row" style="padding: 0em 1em 0em 1em">
+	            <h5>Overall rating</h5>
+	            <div class="progress warning radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.rate_av %>%"></span>
+	            </div>
+	        </div>
+	        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
+	          <li>
+	            <h5>Friendly</h5>
+	            <% if f.user.reputation.friendly_av <= 20 %>
+	            <div class="progress alert radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.friendly_av %>%"></span>
+	            </div>
+	            <% elsif f.user.reputation.friendly_av >= 60 %>
+	            <div class="progress success radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.friendly_av %>%"></span>
+	            </div>
+	            <% else %>
+	            <div class="progress radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.friendly_av %>%"></span>
+	            </div>
+	            <% end %>
+	          </li>
+	          <li>
+	            <h5>Fun</h5>
+	            <% if f.user.reputation.fun_av <= 20 %>
+	            <div class="progress alert radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.fun_av %>%"></span>
+	            </div>
+	            <% elsif f.user.reputation.fun_av >= 60 %>
+	            <div class="progress success radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.fun_av %>%"></span>
+	            </div>
+	            <% else %>
+	            <div class="progress radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.fun_av %>%"></span>
+	            </div>
+	            <% end %>
+	          </li>
+	          <li>
+	            <h5>Confidence</h5>
+	            <% if f.user.reputation.confidence_av <= 20 %>
+	            <div class="progress alert radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.confidence_av %>%"></span>
+	            </div>
+	            <% elsif f.user.reputation.confidence_av >= 60 %>
+	            <div class="progress success radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.confidence_av %>%"></span>
+	            </div>
+	            <% else %>
+	            <div class="progress radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.confidence_av %>%"></span>
+	            </div>
+	            <% end %>
+	          </li>
+	          <li>
+	            <h5>Curiosity</h5>
+	            <% if f.user.reputation.curiosity_av <= 20 %>
+	            <div class="progress alert radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.curiosity_av %>%"></span>
+	            </div>
+	            <% elsif f.user.reputation.curiosity_av >= 60 %>
+	            <div class="progress success radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.curiosity_av %>%"></span>
+	            </div>
+	            <% else %>
+	            <div class="progress radius round">
+	              <span class="meter" style="width: <%= f.user.reputation.curiosity_av %>%"></span>
+	            </div>
+	            <% end %>
+	          </li>
+	        </ul>
+	        <br/>
+	    </div>
+	  <a class="close-reveal-modal">&#215;</a>
+	</div>
+<% end %>

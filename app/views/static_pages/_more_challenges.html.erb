@@ -1,0 +1,35 @@
+</br>
+<div id="morechallenge">
+<h3 class="text-center">Have you ever joined a boring meetup? These challenges make sure every meetup is exciting and fun!</h3>
+<div class="row">
+	<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
+	<% @set_challenges_home.each do |f| %>
+	<li style="padding: 1em 1.5em 0em 1.5em">
+		<div class="row" style="background-color:rgba(0,0,0,0.5); color:white; padding: 1em;">
+			<div class="row">
+			<% unless @test_id =="2" %>
+			  <div class="small-4 columns">
+					<% if f.user.profile.avatar.blank? %>
+						<%= image_tag("noavatar.gif", size:"75x75", alt: "No avatar") %>
+					<% else %>
+						<%= image_tag(f.user.profile.avatar_url(:thumb).to_s, size: "75x75") if f.user.profile.avatar? %>
+					<% end %>
+			  </div>
+			  <div class="small-8 columns">
+			  	<h4> <%= f.user.name %></h4>
+			<% end %>
+					"<%= f.post %>"
+			<% unless @test_id =="2" %>
+			  </div>
+			<% end %>
+			</div>	
+			<br/>
+			<i>End at:</i> <%= f.end_time.in_time_zone(Time.zone).to_formatted_s(:short) %><br/>
+			People with <i><b><%= f.point_measure %> <%= f.point_metric %></b></i> wins!
+			<p><%= image_tag f.setchallenge_url.to_s if f.setchallenge? %>
+		</div>
+	</li>
+	<% end %>
+	</ul>
+</div>
+</div>

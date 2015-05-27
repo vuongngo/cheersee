@@ -1,0 +1,52 @@
+<div class="row" style="padding: 0.5em; background-color: #ffffff">
+	<div class="row"><%= render "reputations/time_manage" %></div>
+	<div class="large-8 medium-10 small-12 small-centered columns">
+		<div class="row" id="userprofile" style="margin-top: 2em">
+			<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
+				<li class="text-center">
+					<span id="editavatar"><% if current_user.id == @user_profile.user_id %><a data-remote="true" href="/profiles/<%= @user_profile.id %>/edit_avatar"><%= image_tag 'photo_button.png', size: "30x30" %></a><% end %>
+					<% if @user_profile.avatar.blank? %>
+						<%= image_tag "noavatar.gif" %>
+					<% else %>
+						<%= image_tag @user_profile.avatar_url.to_s, size: "200x200" if @user_profile.avatar?%>
+					<% end %></span>
+				</li>
+				<li>
+					<div class="row" style="padding: 0.5em">
+						<h3><%= @user_profile.user.name %><h3>
+					</div>
+					<div class="row" style="padding: 0.5em">
+						<h5>Gender: <span id="editgender"><%= @user_profile.gender %><% if current_user.id == @user_profile.user_id %><a data-remote="true" href="/profiles/<%= @user_profile.id %>/edit_gender" style="margin-left: 1em"><%= image_tag 'edit_button.png', size: "30x30" %></a><% end %></span></h5>
+						<h5>Age: <span id="editage"> <%= @user_profile.age %><% if current_user.id == @user_profile.user_id %><a data-remote="true" href="/profiles/<%= @user_profile.id %>/edit_age" style="margin-left: 1em"><%= image_tag 'edit_button.png', size: "30x30" %></a><% end %></span></h5>
+						<h5>Hometown: <span id="edithometown"> <%= @user_profile.hometown %><% if current_user.id == @user_profile.user_id %><a data-remote="true" href="/profiles/<%= @user_profile.id %>/edit_hometown" style="margin-left: 1em"><%= image_tag 'edit_button.png', size: "30x30" %></a><% end %></span></h5>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="row">
+			<h4>My achievement</h4>
+			<%= render "profiles/badges" %>
+		</div>
+		<div class="row" id="userpreference">
+			<h4>Who I am <% if current_user.id == @user_profile.user_id %><a data-remote="true" href="/preferences/<%= @user_preference.id %>/edit_intro" style="margin-left: 1em"><%= image_tag 'edit_button.png', size: "30x30" %></a><% end %></h4>
+			<p id="preferenceintro"><%= @user_preference.intro %></p>
+			<h4>My passion <% if current_user.id == @user_profile.user_id %><a data-remote="true" href="/preferences/<%= @user_preference.id %>/edit_passion" style="margin-left: 1em"><%= image_tag 'edit_button.png', size: "30x30" %></a><% end %></h4>
+			<p id="preferencepassion"><%= @user_preference.passion %></p>
+			<h4>I'm interest in <% if current_user.id == @user_profile.user_id %><a data-remote="true" href="/preferences/<%= @user_preference.id %>/edit_interest" style="margin-left: 1em"><%= image_tag 'edit_button.png', size: "30x30" %></a><% end %></h4>
+			<p id="preferenceinterest"><%= @user_preference.interest %></p>
+		</div>
+		<div class="row" >
+			<%= render "reputations/show" %>
+		</div>	
+		<div class="row">
+			<%= render "profiles/ref" %>
+		</div>
+		<% if current_user.id == @user_preference.user_id %>
+		<div class="row" id="userfriend" style="color:white">
+			<% if @user_profile.user_id == current_user.id %>
+				<%= render "friendships/show" %>
+			<% end %>
+		</div>
+		<% end %>
+	</div>
+</div>

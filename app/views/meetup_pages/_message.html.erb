@@ -1,0 +1,25 @@
+<% @meetup.each do |m| %>
+	<li>
+		<div class="row" style="margin-top: 0.5em">
+			<% if Time.zone.now <= m.share_time %>
+				<% m.who_hangouts.each do |u| %>
+						<% u.hangout.who_hangouts.each do |r| %>
+							<% if r.user_id != current_user.id %>
+									<div class="small-7 columns">
+										<h5>
+											<h5><% if r.user.profile.avatar.blank? %>
+						                        <%= image_tag("noavatar.gif", size:"35x35", alt: "No avatar") %>
+						                    <% else %>
+						                        <%= image_tag(r.user.profile.avatar_url(:thumb).to_s, size: "35x35") if r.user.profile.avatar? %>
+						                    <% end %>
+											<%= r.user.name %></h5> 
+									</div>
+									<div class="small-5 columns">
+										<%= link_to "Chat", hangout_message_path(:id => current_user.id, :hangout_id => m.id), class:"button tiny success", :method => :get %>
+									</div>
+							<% end %>
+						<% end %>
+				<% end %>
+	<% end %>
+	</li>	
+<% end %>

@@ -1,0 +1,6 @@
+<%- if devise_mapping.omniauthable? %>
+	<li style="margin: 1em 1em 0em 0em; opacity: 0.7">Quickly log-in with </li>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <li style="margin-right: 1em; opacity: 0.7"><%= link_to "#{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), class:"button radius small", style:"margin: 5px" %></li>
+  <% end -%>
+<% end -%>

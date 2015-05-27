@@ -1,0 +1,33 @@
+<!-- Map -->
+		<div id="<%= @bid %>directions" style='width: 800x; height: 400px;'></div>
+		 	<script> 
+		 		var l1 = <%= @location2[0].to_json %>;
+		 		var l2 = <%= @location2[1].to_json %>;
+		 		var l3 = <%= @location1[0].to_json %>;
+		 		var l4 = <%= @location1[1].to_json %>;
+				var directionsDisplay = new google.maps.DirectionsRenderer();
+				var directionsService = new google.maps.DirectionsService();
+
+				function calcRoute() {
+				  var origin      = new google.maps.LatLng(l1, l2);
+				  var destination = new google.maps.LatLng(l3, l4);
+				  var request = {
+				      origin:      origin,
+				      destination: destination,
+				      travelMode:  google.maps.TravelMode.DRIVING
+				  };
+				  directionsService.route(request, function(response, status) {
+				    if (status == google.maps.DirectionsStatus.OK) {
+				      directionsDisplay.setDirections(response);
+				    }
+				  });
+				}
+
+				calcRoute();
+
+				var handler = Gmaps.build('Google');
+				handler.buildMap({ internal: {id: '<%= @bid %>directions'}}, function(){
+				  directionsDisplay.setMap(handler.getMap());
+				});
+   			</script>
+   <!-- End map -->

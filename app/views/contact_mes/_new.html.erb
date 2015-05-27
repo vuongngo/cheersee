@@ -1,0 +1,4 @@
+<%= form_for(@contact_mes, remote: :true) do |f| %>
+	<%= f.text_field :question, placeholder: "What do you want to share with us?" %>
+	<%= f.submit "Submit", class: "button tiny alert radius" %>
+<% end %>

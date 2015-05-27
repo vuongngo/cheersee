@@ -1,0 +1,33 @@
+# Ignore bundler config.
+/.bundle/**
+/.ebextensions/**
+/.elasticbeanstalk/**
+
+# Ignore config
+/config/**
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp/**
+
+# Ignore public file
+/public/**
+
+# Ignore image assets
+/app/assets/images/**
+
+# Ignore other unneeded files.
+database.yml
+doc/
+*.swp
+*~
+.project
+.DS_Store
+.idea
+.secret
+
+

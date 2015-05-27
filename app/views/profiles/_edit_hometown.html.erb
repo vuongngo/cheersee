@@ -1,0 +1,6 @@
+<div class="row">
+  <%= form_for(@user_profile, remote: true) do |f| %>
+	<div class="small-5 columns"><%= f.text_field :hometown %></div>
+	<div class="small-5 columns"><%= f.submit "Done", class:"button  tiny" %></div>
+  <% end %>
+</div>

@@ -1,0 +1,7 @@
+<% if @fbadges.nil? && @sbadges.nil? && @tbadges.nil? %>
+$("#badge<%= @usr.id %>").html("<h4> No badges found! </h4>");
+$("#badge<%= @usr.id %>").foundation('reflow');
+<% else %>
+$("#badge<%= @hid %>").html("<%= escape_javascript(render 'profiles/badges') %>");
+$("#badge<%= @hid %>").foundation('reflow');
+<% end %>

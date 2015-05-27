@@ -1,0 +1,28 @@
+<a href="#" data-reveal-id="managechallenge" class="button small success prefix">Post Achievement</a>
+		<div id="managechallenge" class="reveal-modal" data-reveal>
+		<%  @get_manage_challenge.each do |f| %>
+			<div class="row">
+				<a href="/relatedchallenge?id=<%= f.set_challenge.id %>", target="_blank">	
+				  <div class="small-6 columns" style="padding: 0.5em">
+						<%= image_tag f.set_challenge.setchallenge_url(:small).to_s if f.set_challenge.setchallenge? %>
+				  </div>
+				</a>
+			  <div class="small-6 columns">
+				<h4 style="color:black"> 
+					<%= f.set_challenge.post if f.set_challenge.present? %>	
+				</h4>
+				<p>End at: <%= f.set_challenge.end_time.in_time_zone(Time.zone).to_formatted_s(:short) %> </p>
+			  </div>
+			</div>
+			<div class="row" style="border-bottom: inset">
+			  <div class="small-6 columns">
+				<%= link_to "Post achievement", new_join_challenge_path(:set_challenge_id => f.set_challenge_id), remote: true, class:"button small success" %>
+			  </div>
+			  <div class="small-6 columns">
+				<%= link_to "Delete challenge", manage_challenge_path(:id => current_user.id, :manage_challenge_id => f.id), method: :delete, remote: true, class:"button small alert" %>
+			  </div>
+			</div>
+		<% end %>
+		<div id="post-achievement" class="row"></div>
+		<a class="close-reveal-modal" id="close-modal">&#215;</a>
+		</div>

@@ -1,0 +1,9 @@
+<p>
+  <a href="/profiles?id=<%= join_challenge_comment.user.id %>", target="_blank">	
+	<% if join_challenge_comment.user.profile.avatar.blank? %>
+		<%= image_tag("noavatar.gif", size:"35x35", alt: "No avatar") %>
+	<% else %>
+		<%= image_tag(join_challenge_comment.user.profile.avatar_url(:thumb).to_s, size: "35x35") if join_challenge_comment.user.profile.avatar? %>
+	<% end %>
+  </a>
+		<b><%= join_challenge_comment.user.name %></b>-- <%= join_challenge_comment.comment %>
