@@ -3,3 +3,4 @@
 * Front-end: Foundation
 
 # [Demo](http://cheersee.herokuapp.com)
+* Imaged upload is deprecated
