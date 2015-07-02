@@ -1,6 +1,7 @@
-# Location-based social network
-* Backend: Ruby on Rails
-* Front-end: Foundation
+# Location-based social network (stop maintaining project for reason moving toward cheerseeapi stack)
+* Backend: Ruby on Rails, PostGres
+* Front-end: Foundation, Javascript
 
 # [Demo](http://cheersee.herokuapp.com)
 * Imaged upload is deprecated
+* Place search is deprecated
